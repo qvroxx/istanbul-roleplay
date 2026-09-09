@@ -83,7 +83,7 @@
             padding: 4rem 1rem;
             background: linear-gradient(180deg, rgba(0, 102, 255, 0.15) 0%, rgba(18, 18, 20, 1) 100%);
             border-radius: 15px;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
         }
 
         .hero h1 {
@@ -145,32 +145,6 @@
             height: 3px;
             background: #0066ff;
             margin: 0.5rem auto 0;
-        }
-
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .gallery-item {
-            position: relative;
-            border-radius: 10px;
-            overflow: hidden;
-            border: 1px solid #333;
-            height: 220px;
-            background: #222;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: 0.3s transform;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.05);
         }
 
         .rules-container {
@@ -305,15 +279,6 @@
                 </a>
             </div>
         </div>
-
-        <h2 class="section-title">Oyundan Anılar</h2>
-        <div class="gallery">
-            <div class="gallery-item"><img src="https://cdn.discordapp.com/attachments/1424814973107834880/1541474459465031830/image.png?ex=6aa2d176&is=6aa17ff6&hm=113b5d9ee8aaa8943bf77b186f98404387753d43a50925f6222d3c658373dbf4&" alt="Anı 1"></div>
-            <div class="gallery-item"><img src="https://cdn.discordapp.com/attachments/1424814973107834880/1541865940969455667/image.png?ex=6aa243ce&is=6aa0f24e&hm=adabfb82a1e86d8f871dbb5e6e0eb9da07ec7ff87134f14efc0625fc7726dda1&" alt="Anı 2"></div>
-            <div class="gallery-item"><img src="https://cdn.discordapp.com/attachments/1424814973107834880/1543588932619472947/image.png?ex=6aa299b8&is=6aa14838&hm=0b08e0ef4684e11ca25413cd0f66225b1a644055284808d81a7bab97be3e6cb0&" alt="Anı 3"></div>
-            <div class="gallery-item"><img src="https://cdn.discordapp.com/attachments/1424814973107834880/1543711329259364482/image.png?ex=6aa262f5&is=6aa11175&hm=14a67d7c4088f40ac781e6bf5345ce76307f534efe2f392f0189f79612165682&" alt="Anı 4"></div>
-            <div class="gallery-item"><img src="https://cdn.discordapp.com/attachments/1424814973107834880/1545138077813440522/image.png?ex=6aa24db9&is=6aa0fc39&hm=15677de8a6a6bcf9ee540b3921e7c616b25aab88b4816138c91d7c0f69506b7f&" alt="Anı 5"></div>
-        </div>
     </div>
 
     <!-- 2. SAYFA: DETAYLI KURALLAR -->
@@ -322,30 +287,47 @@
         <div class="rules-container">
             
             <div class="rule-box">
-                <h3><i class="fa-solid fa-book"></i> Temel Roleplay (RP) Terimleri & Kuralları</h3>
+                <h3><i class="fa-solid fa-book"></i> Temel Roleplay Terimleri</h3>
                 <ul>
-                    <li><strong>In Character (IC):</strong> Karakterinizin oyun içindeki dünyasıdır. Oyun içi tüm konuşmalar rol gereğidir.</li>
-                    <li><strong>Out Of Character (OOC):</strong> Karakter dışı, yani gerçek hayatınızdır. Rol ortasında OOC konuşmak yasaktır.</li>
-                    <li><strong>VDM (Vehicle Deathmatch):</strong> Aracınızı sebepsiz yere veya rol temeli olmadan insanları ezmek/öldürmek için kullanmak kesinlikle yasaktır.</li>
-                    <li><strong>RDM (Random Deathmatch):</strong> Herhangi bir geçerli rol sebebi (karşılıklı diyalog, husumet) olmadan oyuncuları saldırmak veya öldürmek yasaktır.</li>
-                    <li><strong>FearRP:</strong> Karakterinizin canını koruma zorunluluğudur. Başınıza silah doğrultulduğunda veya hayatınız tehlikedeyken korku rolü yapmanız şarttır.</li>
-                    <li><strong>MetaGaming (MG):</strong> Oyun dışında (Discord, canlı yayın vb.) öğrendiğiniz bilgileri oyun içinde karakterinize bildirmek/kullanmak yasaktır.</li>
-                    <li><strong>PowerGaming (PG):</strong> Gerçek hayatta yapılması imkansız olan eylemleri oyunda yapmak (örneğin uçurumdan araçla atlayıp hiçbir şey olmamış gibi devam etmek).</li>
-                    <li><strong>New Life Rule (NLR):</strong> Karakteriniz öldüğünde ve hastaneden uyandığında, sizi ölüme götüren olayları ve kişileri unutmak zorundasınız.</li>
-                    <li><strong>FailRP:</strong> Roleplay mantığına uymayan, rol kalitesini düşüren gerçek dışı hareketlerde bulunmaktır.</li>
-                    <li><strong>QuitRP (Combat Log):</strong> Rolün ortasında veya polisten/çeteden kaçarken oyundan çıkmak yasaktır.</li>
+                    <li><strong>IC (In Character):</strong> Karakterinizin oyun içindeki dünyasıdır. Oyun içi tüm diyaloglar role uygun yapılmalıdır.</li>
+                    <li><strong>OOC (Out Of Character):</strong> Karakter dışı, yani gerçek hayatınızdır. Rolün ortasında OOC konuşmak yasaktır.</li>
+                    <li><strong>VDM (Vehicle Deathmatch):</strong> Aracınızı bir silah gibi sebepsiz yere insanların üzerine sürmek yasaktır.</li>
+                    <li><strong>RDM (Random Deathmatch):</strong> Herhangi bir rol sebebi veya diyalog olmadan oyunculara saldırmak/öldürmek yasaktır.</li>
+                    <li><strong>FearRP:</strong> Karakterinizin hayatını koruma zorunluluğudur. Tehdit altındayken hayatınızı riske atamazsınız.</li>
+                    <li><strong>MetaGaming (MG):</strong> Discord, yayın veya oyun dışı kanallardan aldığınız bilgileri oyun içinde kullanmak yasaktır.</li>
+                    <li><strong>PowerGaming (PG):</strong> Gerçek hayatta yapılması imkansız olan aksiyonları oyunda gerçekleştirmektir.</li>
+                    <li><strong>New Life Rule (NLR):</strong> Karakteriniz öldüğünde ve yeniden doğduğunda, geçmiş olayları ve sizi öldüren kişiyi unutursunuz.</li>
                 </ul>
             </div>
 
             <div class="rule-box">
-                <h3><i class="fa-solid fa-shield-halved"></i> Oyun İçi (IRP) Sunucu Kuralları</h3>
+                <h3><i class="fa-solid fa-gavel"></i> In-Game Roleplay (IRP) Kuralları</h3>
                 <ul>
-                    <li><strong>Karakter Adı:</strong> Troll, ünlü isimleri veya küfürlü karakter adları kullanmak yasaktır. Gerçekçi isimler tercih edilmelidir.</li>
-                    <li><strong>Devlet ve Güvenlik Güçleri:</strong> Emniyet (Polis) ve Sağlık görevlilerine karşı nedensiz saldırı yapmak, rolü trollere sarmak ağır ceza sebebidir.</li>
-                    <li><strong>Güvenli Bölgeler (Safe Zone):</strong> Hastane, Emniyet Binası ve Doğuş Noktaları güvenli bölgedir. Bu alanlarda illegal rol/çatışma yapılamaz.</li>
-                    <li><strong>Açık ve Bug Kullanımı:</strong> Oyun içi hataları veya açıkları kendi lehinize kullanmak kalıcı uzaklaştırma (Ban) sebebidir.</li>
-                    <li><strong>Sesli / Yazılı Chat Saygısı:</strong> Oyun içi chat veya ses kanalında herhangi bir ailevi küfür, ırkçılık veya siyasi propaganda kesinlikle yasaktır.</li>
-                    <li><strong>Troll & Refuse RP:</strong> Rol yapmayı reddetmek veya sürekli ortamı trollemek sunucudan engellenme sebebidir.</li>
+                    <li><strong>Karakter İsmi:</strong> Troll, komik veya gerçek hayattaki ünlülerin isimlerini kullanmak yasaktır.</li>
+                    <li><strong>Güvenli Bölge (Safe Zone):</strong> Hastane, Emniyet Müdürlüğü ve Doğuş Alanlarında hiçbir şekilde illegal rol yapılamaz.</li>
+                    <li><strong>QuitRP (Combat Log):</strong> Bir rolün, polisle kovalamacanın veya çatışmanın ortasında oyundan çıkmak yasaktır.</li>
+                    <li><strong>Refuse RP:</strong> Başlatılan geçerli bir rolü reddetmek veya rol yapmayı durdurmak yasaktır.</li>
+                    <li><strong>Retard RP / FailRP:</strong> Rol kalitesini düşüren, ciddiyetsiz ve gerçek dışı hareketlerde bulunmak yasaktır.</li>
+                    <li><strong>Bug & Açık Kullanımı:</strong> Oyun içi hataları kendi çıkarınız için kullanmak kalıcı ban sebebidir.</li>
+                </ul>
+            </div>
+
+            <div class="rule-box">
+                <h3><i class="fa-solid fa-shield-halved"></i> İllegal ve Birlik Kuralları</h3>
+                <ul>
+                    <li><strong>Çete & Birlik Kuralları:</strong> İzinsiz ve rolsüz çete savaşları başlatılamaz.</li>
+                    <li><strong>Gasp & Soygun:</strong> Yeni başlayan (Doğuş noktasındaki) oyuncuları gasp etmek veya soyunmak yasaktır.</li>
+                    <li><strong>Devlet Görevlilerine Saldırı:</strong> Sebepsiz yere Polis, Bekçi ve Sağlık ekiplerine saldırmak kesinlikle yasaktır.</li>
+                    <li><strong>Bölge Taraması:</strong> Düşman çete veya grupların bölgelerine rolsüz baskın düzenlenemez.</li>
+                </ul>
+            </div>
+
+            <div class="rule-box">
+                <h3><i class="fa-solid fa-comments"></i> Topluluk ve Saygı Kuralları</h3>
+                <ul>
+                    <li>Oyun içinden veya Discord üzerinden ailevi, dini, ırkçı ve siyasi hakaretler kesinlikle yasaktır.</li>
+                    <li>Yetkili ekibine karşı saygısızlık ve rol kararlarına ciddiyetsiz yaklaşım yaptırım sebebidir.</li>
+                    <li>Sunucu içerisinde veya yetkili odalarında ses değiştirici (Voice Changer) kullanımı yasaktır.</li>
                 </ul>
             </div>
 
