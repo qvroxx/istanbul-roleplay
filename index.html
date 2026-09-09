@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>İstanbul Roleplay | Topluluk Portalı</title>
-    <!-- FontAwesome & Fonts -->
+    <title>İstanbul Roleplay - Official Website</title>
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* --- ORİJİNAL TEMA AYARLARI --- */
         :root {
-            --primary-blue: #0088ff;
-            --hover-blue: #0066cc;
-            --bg-dark: #0f172a;
-            --card-bg: #1e293b;
-            --text-main: #f8fafc;
-            --text-sub: #94a3b8;
-            --border-color: #334155;
+            --bg-color: #030712;
+            --card-bg: rgba(10, 20, 42, 0.7);
+            --border-color: rgba(0, 162, 255, 0.3);
+            --primary-blue: #00a2ff;
+            --neon-glow: 0 0 15px rgba(0, 162, 255, 0.5);
+            --neon-glow-strong: 0 0 25px rgba(0, 162, 255, 0.8);
+            --text-color: #f1f5f9;
+            --text-muted: #94a3b8;
         }
 
         * {
@@ -25,624 +25,513 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
-            user-select: none;
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(0, 162, 255, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 102, 255, 0.12) 0%, transparent 50%);
+            color: var(--text-color);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            position: relative;
-            overflow-x: hidden;
         }
 
-        /* --- CANLI ARKA PLAN CANVAS --- */
-        #particle-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        /* --- INTRO LOADING SCREEN --- */
-        #intro-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--bg-dark);
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
-        }
-
-        .intro-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-        }
-
-        .intro-title span {
-            color: var(--primary-blue);
-        }
-
-        .loader-bar {
-            width: 200px;
-            height: 4px;
-            background: var(--border-color);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .loader-progress {
-            width: 0%;
-            height: 100%;
-            background: var(--primary-blue);
-            animation: load 2s forwards ease-in-out;
-        }
-
-        @keyframes load {
-            0% { width: 0%; }
-            100% { width: 100%; }
-        }
-
-        /* --- HEADER / NAVIGASYON --- */
+        /* Navbar */
         header {
-            background-color: rgba(30, 41, 59, 0.85);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
+            position: fixed;
             top: 0;
-            z-index: 100;
-        }
-
-        .navbar {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 18px 20px;
+            left: 0;
+            width: 100%;
+            padding: 20px 8%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: rgba(3, 7, 18, 0.85);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
         }
 
         .logo {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--text-main);
+            font-size: 24px;
+            font-weight: 800;
+            color: #fff;
             text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
         }
 
         .logo span {
             color: var(--primary-blue);
+            text-shadow: var(--neon-glow);
         }
 
-        .nav-menu {
+        nav ul {
             display: flex;
-            gap: 10px;
             list-style: none;
+            gap: 15px;
         }
 
-        .nav-link {
-            color: var(--text-sub);
+        nav ul li a {
+            color: var(--text-muted);
             text-decoration: none;
             font-weight: 500;
-            padding: 8px 16px;
-            border-radius: 8px;
             transition: all 0.3s ease;
+            font-size: 15px;
             cursor: pointer;
-            font-size: 0.95rem;
+            padding: 8px 14px;
+            border-radius: 8px;
         }
 
-        .nav-link:hover, .nav-link.active {
-            color: var(--text-main);
-            background-color: rgba(255, 255, 255, 0.05);
+        nav ul li a:hover, nav ul li a.active {
+            color: #fff;
+            background: rgba(0, 162, 255, 0.15);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--neon-glow);
+            text-shadow: var(--neon-glow);
         }
 
-        .nav-link.active {
-            color: var(--primary-blue);
-        }
-
-        /* --- CONTAINER VE SAYFA SEKME YAPISI --- */
+        /* Main Container & Page Sections */
         .container {
-            max-width: 1100px;
-            margin: 40px auto;
-            padding: 0 20px;
-            flex: 1;
+            max-width: 1200px;
             width: 100%;
+            margin: 0 auto;
+            padding: 130px 20px 60px;
+            flex: 1;
         }
 
-        .page-tab {
+        .page-section {
             display: none;
-            animation: fadeIn 0.4s ease;
+            animation: fadeIn 0.4s ease-in-out forwards;
         }
 
-        .page-tab.active {
+        .page-section.active {
             display: block;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- ORİJİNAL HERO & KART DÜZENLERİ --- */
-        .hero-box {
+        /* Hero Card */
+        .hero {
+            text-align: center;
+            padding: 50px 20px;
+            margin-bottom: 40px;
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 40px 30px;
-            text-align: center;
-            margin-bottom: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            box-shadow: var(--neon-glow);
         }
 
-        .hero-box h1 {
-            font-size: 2.2rem;
-            margin-bottom: 12px;
-            color: var(--text-main);
+        .hero h1 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: #fff;
+            text-shadow: var(--neon-glow-strong);
         }
 
-        .hero-box p {
-            color: var(--text-sub);
-            font-size: 1rem;
-            max-width: 650px;
-            margin: 0 auto 25px auto;
-            line-height: 1.6;
+        .hero p {
+            font-size: 17px;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
         }
 
         .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 24px;
-            border-radius: 8px;
+            padding: 12px 28px;
+            border-radius: 10px;
             font-weight: 600;
             text-decoration: none;
-            transition: all 0.2s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
         }
 
         .btn-primary {
-            background-color: var(--primary-blue);
+            background: var(--primary-blue);
             color: #fff;
+            box-shadow: var(--neon-glow);
         }
 
         .btn-primary:hover {
-            background-color: var(--hover-blue);
+            box-shadow: var(--neon-glow-strong);
+            transform: translateY(-2px);
         }
 
         .btn-secondary {
-            background-color: #334155;
-            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border: 1px solid var(--border-color);
         }
 
         .btn-secondary:hover {
-            background-color: #475569;
+            background: rgba(0, 162, 255, 0.1);
+            border-color: var(--primary-blue);
+            box-shadow: var(--neon-glow);
+            transform: translateY(-2px);
         }
 
-        /* ORİJİNAL KART BÖLÜMLERİ */
-        .section-header {
-            font-size: 1.6rem;
-            color: var(--text-main);
-            margin-bottom: 20px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-header i {
-            color: var(--primary-blue);
-        }
-
+        /* Grid Layouts */
         .grid-2 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
         }
 
         .grid-3 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
         }
 
+        /* Glass Cards */
         .card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 24px;
+            border-radius: 16px;
+            padding: 30px;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
 
-        .card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 12px;
-            color: var(--text-main);
+        .card:hover {
+            border-color: var(--primary-blue);
+            box-shadow: var(--neon-glow);
+            transform: translateY(-4px);
+        }
+
+        .card h2 {
+            font-size: 22px;
+            color: #fff;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
-        .card h3 i {
+        .card h2 i {
+            color: var(--primary-blue);
+            text-shadow: var(--neon-glow);
+        }
+
+        /* Section Titles */
+        .section-title {
+            text-align: center;
+            font-size: 30px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 35px;
+            text-shadow: var(--neon-glow);
+        }
+
+        /* Rules List */
+        .rules-list { list-style: none; }
+        .rules-list li {
+            position: relative;
+            padding-left: 22px;
+            margin-bottom: 12px;
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+        .rules-list li::before {
+            content: "➢";
+            position: absolute;
+            left: 0;
             color: var(--primary-blue);
         }
 
-        .card p {
-            color: var(--text-sub);
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        /* YETKİLİ EKİBİ KARTLARI */
-        .staff-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 24px;
-            text-align: center;
-        }
-
+        /* Staff Cards */
+        .staff-card { text-align: center; padding: 25px; }
         .staff-avatar {
             width: 70px;
             height: 70px;
             border-radius: 50%;
-            background: var(--border-color);
-            margin: 0 auto 15px auto;
+            background: rgba(0, 162, 255, 0.1);
+            border: 2px solid var(--primary-blue);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
+            margin: 0 auto 15px;
+            font-size: 28px;
             color: var(--primary-blue);
+            box-shadow: var(--neon-glow);
         }
 
-        .staff-card h4 {
-            font-size: 1.1rem;
-            color: var(--text-main);
-            margin-bottom: 5px;
+        /* Link & Contact Cards */
+        .link-card {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 20px;
+            text-decoration: none;
+            color: inherit;
         }
-
-        .staff-role {
-            font-size: 0.85rem;
+        .link-icon {
+            font-size: 26px;
             color: var(--primary-blue);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* KARAKTER İSİM ÖNERİCİ */
-        .generator-box {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 162, 255, 0.1);
             border-radius: 12px;
-            padding: 40px;
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .result-name {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary-blue);
-            background: var(--bg-dark);
-            border: 1px solid var(--border-color);
-            padding: 20px;
-            border-radius: 8px;
-            margin: 25px 0;
-            min-height: 75px;
             display: flex;
             align-items: center;
             justify-content: center;
+            border: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+        .tiktok-icon { color: #00f2fe; }
+        .instagram-icon { color: #e1306c; }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid var(--border-color);
+            background: rgba(3, 7, 18, 0.95);
+            color: var(--text-muted);
+            font-size: 14px;
         }
 
-        /* FOOTER */
-        footer {
-            background-color: var(--card-bg);
-            border-top: 1px solid var(--border-color);
-            text-align: center;
-            padding: 20px;
-            color: var(--text-sub);
-            font-size: 0.88rem;
-            margin-top: 40px;
-        }
+        footer span { color: var(--primary-blue); }
 
         @media (max-width: 768px) {
-            .nav-menu { display: flex; flex-wrap: wrap; justify-content: center; }
-            .navbar { flex-direction: column; gap: 15px; }
+            header { flex-direction: column; gap: 12px; padding: 15px; }
+            nav ul { gap: 8px; flex-wrap: wrap; justify-content: center; }
+            .hero h1 { font-size: 28px; }
+            .grid-2 { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <!-- CANLI ARKA PLAN -->
-    <canvas id="particle-canvas"></canvas>
-
-    <!-- INTRO LOADING SCREEN -->
-    <div id="intro-screen">
-        <div class="intro-title">İstanbul <span>Roleplay</span></div>
-        <div class="loader-bar">
-            <div class="loader-progress"></div>
-        </div>
-    </div>
-
-    <!-- HEADER / MENÜ -->
+    <!-- Header / Navbar -->
     <header>
-        <div class="navbar">
-            <a href="#" class="logo"><i class="fa-solid fa-city"></i> İstanbul <span>Roleplay</span></a>
-            <ul class="nav-menu">
-                <li><a class="nav-link active" onclick="switchTab('home', this)">Ana Sayfa</a></li>
-                <li><a class="nav-link" onclick="switchTab('about', this)">Hakkımızda</a></li>
-                <li><a class="nav-link" onclick="switchTab('staff', this)">Yetkili Ekibi</a></li>
-                <li><a class="nav-link" onclick="switchTab('terms', this)">Rol Sözlüğü</a></li>
-                <li><a class="nav-link" onclick="switchTab('generator', this)">İsim Önerici</a></li>
-                <li><a class="nav-link" onclick="switchTab('rules', this)">Kurallar</a></li>
+        <a class="logo" onclick="switchTab('ana-sayfa', this)">İstanbul <span>RP</span></a>
+        <nav>
+            <ul>
+                <li><a class="nav-btn active" onclick="switchTab('ana-sayfa', this)">Ana Sayfa</a></li>
+                <li><a class="nav-btn" onclick="switchTab('kurallar', this)">Kurallar</a></li>
+                <li><a class="nav-btn" onclick="switchTab('yetkililer', this)">Yetkili Ekibi</a></li>
+                <li><a class="nav-btn" onclick="switchTab('sosyal-medya', this)">Sosyal Medya</a></li>
+                <li><a class="nav-btn" onclick="switchTab('iletisim', this)">İletişim</a></li>
             </ul>
-        </div>
+        </nav>
     </header>
 
-    <!-- CONTAINER (SAYFALAR) -->
     <div class="container">
 
-        <!-- 1. SAYFA: ANA SAYFA -->
-        <div id="home" class="page-tab active">
-            <div class="hero-box">
-                <h1>İstanbul Roleplay'e Hoş Geldin</h1>
-                <p>Kaliteli roleplay deneyimi, adaletli yönetim anlayışı ve gelişmiş sistemlerle sunucumuzda yerini al. Şehrin hikayesine sen de ortak ol!</p>
-                <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-                    <a href="https://discord.gg" target="_blank" class="btn btn-primary"><i class="fa-brands fa-discord"></i> Discord'a Katıl</a>
-                    <button class="btn btn-secondary" onclick="switchTab('rules', document.querySelectorAll('.nav-link')[5])"><i class="fa-solid fa-book"></i> Sunucu Kuralları</button>
-                </div>
-            </div>
-
-            <div class="section-header"><i class="fa-solid fa-star"></i> Sunucu Özellikleri & Ayrıcalıklar</div>
-            <div class="grid-3">
-                <div class="card">
-                    <h3><i class="fa-solid fa-shield-halved"></i> Adaletli Yönetim</h3>
-                    <p>Oyuncular arasında ayrım gözetmeksizin, kuralları herkese eşit uygulayan tecrübeli yetkili kadrosu.</p>
-                </div>
-                <div class="card">
-                    <h3><i class="fa-solid fa-car"></i> Özel Modlu Araçlar</h3>
-                    <p>Özenle seçilmiş, gerçekçi sürüş dinamiklerine sahip yüzlerce modlu araç ve özel ses paketleri.</p>
-                </div>
-                <div class="card">
-                    <h3><i class="fa-solid fa-briefcase"></i> Legal & İllegal Meslekler</h3>
-                    <p>Gelişmiş EGM ve 112 sistemlerinin yanı sıra keşfedilmeyi bekleyen gizli illegal mekanlar.</p>
+        <!-- 1. ANA SAYFA -->
+        <section id="ana-sayfa" class="page-section active">
+            <div class="hero">
+                <h1>İstanbul Roleplay'e Hoş Geldiniz</h1>
+                <p>Gerçekçi şehir atmosferi, aktif topluluk ve benzersiz rol deneyimi için aramıza katılın!</p>
+                <div class="btn-group">
+                    <a href="https://discord.gg/9W7m69B7K9" target="_blank" class="btn btn-primary"><i class="fa-brands fa-discord"></i> Discord Server</a>
+                    <a href="https://www.roblox.com/communities/35165992/Edirne-Roleplay-V2#!/about" target="_blank" class="btn btn-secondary"><i class="fa-solid fa-gamepad"></i> Roblox Grubu</a>
                 </div>
             </div>
 
             <div class="grid-2">
                 <div class="card">
-                    <h3><i class="fa-solid fa-bullhorn"></i> Duyurular</h3>
-                    <p>Sunucu güncellemeleri, bakım bilgileri ve etkinlik duyuruları için Discord sunucumuzdaki <b>#duyuru</b> kanalını takip etmeyi unutmayın.</p>
+                    <h2><i class="fa-solid fa-compass"></i> Vizyonumuz</h2>
+                    <p>Roblox üzerinde faaliyet gösteren İstanbul Roleplay olarak hedefimiz; kaliteyi, adaleti, disiplini ve gerçekçi rol deneyimini bir araya getirerek Türkiye'nin örnek roleplay topluluklarından biri olmaktır.</p>
+                    <br>
+                    <p>Topluluğumuz içerisinde her oyuncunun eşit haklara sahip olduğu, emeğin karşılık gördüğü ve düzenin korunarak herkes için güvenli bir ortam oluşturulduğu bir yapı inşa etmeyi amaçlıyoruz.</p>
                 </div>
                 <div class="card">
-                    <h3><i class="fa-solid fa-users"></i> Ekibimize Katıl</h3>
-                    <p>Yetkili kadrosunda veya departmanlarda (EGM/112) yer almak istiyorsan Discord üzerinden başvuru bileti (ticket) açabilirsin.</p>
+                    <h2><i class="fa-solid fa-bullseye"></i> Misyonumuz</h2>
+                    <p>İstanbul Roleplay olarak misyonumuz; oyuncularımıza adaletli, düzenli, güvenli ve kaliteli bir roleplay ortamı sunmaktır.</p>
+                    <br>
+                    <p>Yönetim ekibimiz; tarafsızlık, dürüstlük ve sorumluluk ilkeleri doğrultusunda hareket ederek topluluk düzenini korumayı ve oyuncu haklarını gözetmeyi temel görev kabul eder.</p>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- 2. SAYFA: HAKKIMIZDA (VİZYON / MİSYON) -->
-        <div id="about" class="page-tab">
-            <div class="section-header"><i class="fa-solid fa-circle-info"></i> Biz Kimiz?</div>
-            <div class="card" style="margin-bottom: 25px;">
-                <p>İstanbul Roleplay, oyunculara en üst düzey roleplay atmosferini sunmak amacıyla kurulmuş yenilikçi bir topluluktur. Amacımız, oyuncuların mantık çerçevesinde özgürce rol yapabileceği, seviyeli ve eğlenceli bir ortam oluşturmaktır.</p>
-            </div>
-
+        <!-- 2. KURALLAR -->
+        <section id="kurallar" class="page-section">
+            <h2 class="section-title">Sunucu Kuralları</h2>
             <div class="grid-2">
                 <div class="card">
-                    <h3><i class="fa-solid fa-eye"></i> Vizyonumuz</h3>
-                    <p>Türkiye'deki roleplay kalitesini en üst seviyeye çıkarmak, kuralların eksiksiz işlediği ve trolle müsamaha gösterilmeyen örnek bir topluluk olmak.</p>
+                    <h2><i class="fa-solid fa-book-bookmark"></i> Genel Roleplay Kuralları</h2>
+                    <ul class="rules-list">
+                        <li><strong>VDM (Vehicle Deathmatch):</strong> Aracınızı bir silah gibi kullanarak oyuncuları nedensizce ezmek yasaktır.</li>
+                        <li><strong>RDM (Random Deathmatch):</strong> Geçerli bir rol sebebi olmadan oyuncuları öldürmek yasaktır.</li>
+                        <li><strong>Fear RP:</strong> Karakterinizin hayatını riske atacak durumlarda gerçekçi korku tepkisi vermeniz zorunludur.</li>
+                        <li><strong>Powergaming (PG):</strong> Gerçek hayatta yapılması imkansız eylemleri rolde yapmak yasaktır.</li>
+                        <li><strong>Metagaming (MG):</strong> Rol dışı (OOC) bilgileri rol içinde (IC) kullanmak kesinlikle yasaktır.</li>
+                    </ul>
                 </div>
                 <div class="card">
-                    <h3><i class="fa-solid fa-bullseye"></i> Misyonumuz</h3>
-                    <p>Oyuncularımıza kesintisiz, adil ve sürdürülebilir bir oyun alanı sağlayarak eğlenceli rol anılarına ev sahipliği yapmak.</p>
+                    <h2><i class="fa-solid fa-shield-halved"></i> Sunucu İçi Düzen Kuralları</h2>
+                    <ul class="rules-list">
+                        <li><strong>OOC Konuşma:</strong> Oyun içerisinde rolü bölerek Rol Dışı (OOC) konuşmak yasaktır.</li>
+                        <li><strong>Saygı ve Üslup:</strong> Tüm oyunculara ve yetkili ekibine karşı saygılı bir üslup kullanmak zorunludur.</li>
+                        <li><strong>Bug ve Hile Kullanımı:</strong> Oyun açıklarından faydalanmak veya hile kullanmak kalıcı ban sebebidir.</li>
+                        <li><strong>Rol Kalitesi:</strong> Troll rol yapmak ve rol akışını bozacak hareketlerde bulunmak yasaktır.</li>
+                    </ul>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- 3. SAYFA: YETKİLİ EKİBİ -->
-        <div id="staff" class="page-tab">
-            <div class="section-header"><i class="fa-solid fa-user-shield"></i> Sunucu Yönetim Ekibi</div>
+        <!-- 3. YETKİLİ EKİBİ -->
+        <section id="yetkililer" class="page-section">
+            <h2 class="section-title">Yetkili Ekibi</h2>
             <div class="grid-3">
-                <div class="staff-card">
+                <div class="card staff-card">
                     <div class="staff-avatar"><i class="fa-solid fa-crown"></i></div>
-                    <h4>Kurucu Ekip</h4>
-                    <div class="staff-role">Sunucu Sahibi</div>
+                    <h3>Samet</h3>
+                    <p style="color: var(--primary-blue); font-weight: 500; font-size: 14px; margin-top: 4px;">Founder</p>
                 </div>
-                <div class="staff-card">
-                    <div class="staff-avatar"><i class="fa-solid fa-code"></i></div>
-                    <h4>Geliştirici Ekip</h4>
-                    <div class="staff-role">Developer</div>
-                </div>
-                <div class="staff-card">
+                <div class="card staff-card">
                     <div class="staff-avatar"><i class="fa-solid fa-user-gear"></i></div>
-                    <h4>Yönetim Ekibi</h4>
-                    <div class="staff-role">Head Admin</div>
+                    <h3>Bedirhan</h3>
+                    <p style="color: var(--primary-blue); font-weight: 500; font-size: 14px; margin-top: 4px;">Kurucu Temsilcisi</p>
+                </div>
+                <div class="card staff-card">
+                    <div class="staff-avatar"><i class="fa-solid fa-user-gear"></i></div>
+                    <h3>Buğra</h3>
+                    <p style="color: var(--primary-blue); font-weight: 500; font-size: 14px; margin-top: 4px;">Genel Yönetici</p>
+                </div>
+                <div class="card staff-card">
+                    <div class="staff-avatar"><i class="fa-solid fa-code"></i></div>
+                    <h3>Tuna</h3>
+                    <p style="color: var(--primary-blue); font-weight: 500; font-size: 14px; margin-top: 4px;">Genel Yönetici Yardımcısı & Site Geliştiricisi</p>
+                </div>
+                <div class="card staff-card">
+                    <div class="staff-avatar"><i class="fa-solid fa-user-shield"></i></div>
+                    <h3>Furkan</h3>
+                    <p style="color: var(--primary-blue); font-weight: 500; font-size: 14px; margin-top: 4px;">Genel Yönetici Yardımcısı</p>
+                </div>
+                <div class="card staff-card">
+                    <div class="staff-avatar"><i class="fa-solid fa-user-check"></i></div>
+                    <h3>Kerem</h3>
+                    <p style="color: var(--primary-blue); font-weight: 500; font-size: 14px; margin-top: 4px;">Deneme Yönetim Ekibi</p>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- 4. SAYFA: ROL TERİMLERİ SÖZLÜĞÜ -->
-        <div id="terms" class="page-tab">
-            <div class="section-header"><i class="fa-solid fa-book-bookmark"></i> Kapsamlı Rol Terimleri Sözlüğü</div>
-            <div class="grid-2">
+        <!-- 4. SOSYAL MEDYA -->
+        <section id="sosyal-medya" class="page-section">
+            <h2 class="section-title">Sosyal Medya Hesaplarımız</h2>
+            <div class="grid-3">
+                <a href="https://www.tiktok.com/@prof.dr.slayer" target="_blank" class="card link-card">
+                    <div class="link-icon tiktok-icon"><i class="fa-brands fa-tiktok"></i></div>
+                    <div>
+                        <h3 style="color:#fff;">Samet</h3>
+                        <p style="color:var(--text-muted); font-size:13px;">@prof.dr.slayer</p>
+                    </div>
+                </a>
 
-                <div class="card">
-                    <h3><i class="fa-solid fa-user-tag"></i> IC & OOC</h3>
-                    <p><b>IC (In Character):</b> Karakterinizin içinde olduğu oyun içi dünya.<br><b>OOC (Out Of Character):</b> Karakterinizden bağımsız, gerçek hayattaki siz. IC/OOC bilgileri karıştırılamaz.</p>
-                </div>
+                <a href="https://www.tiktok.com/@edirnebelediyesi22" target="_blank" class="card link-card">
+                    <div class="link-icon tiktok-icon"><i class="fa-brands fa-tiktok"></i></div>
+                    <div>
+                        <h3 style="color:#fff;">İstanbul Roleplay</h3>
+                        <p style="color:var(--text-muted); font-size:13px;">@edirnebelediyesi22</p>
+                    </div>
+                </a>
 
-                <div class="card">
-                    <h3><i class="fa-solid fa-keyboard"></i> /me & /do Komutları</h3>
-                    <p><b>/me:</b> Karakterin fiziksel eylemlerini açıklar. (Örn: /me ruhsatı uzatır)<br><b>/do:</b> Karakterin durumunu ve çevre detaylarını açıklar.</p>
-                </div>
+                <a href="https://www.tiktok.com/@edirnebelediyesi55" target="_blank" class="card link-card">
+                    <div class="link-icon tiktok-icon"><i class="fa-brands fa-tiktok"></i></div>
+                    <div>
+                        <h3 style="color:#fff;">İstanbul Roleplay</h3>
+                        <p style="color:var(--text-muted); font-size:13px;">@edirnebelediyesi55</p>
+                    </div>
+                </a>
 
-                <div class="card">
-                    <h3><i class="fa-solid fa-ban"></i> RDM & VDM</h3>
-                    <p><b>RDM:</b> Sebepsiz adam öldürme.<br><b>VDM:</b> Aracı silah gibi kullanıp insan ezme. İkisi de kesinlikle yasaktır.</p>
-                </div>
+                <a href="https://www.instagram.com/roblox_istanbulrp?igsi=MXZja3YwbnhsMHJobw%3D%3D&utm_source=qr" target="_blank" class="card link-card">
+                    <div class="link-icon instagram-icon"><i class="fa-brands fa-instagram"></i></div>
+                    <div>
+                        <h3 style="color:#fff;">İstanbul Roleplay</h3>
+                        <p style="color:var(--text-muted); font-size:13px;">@roblox_istanbulrp</p>
+                    </div>
+                </a>
 
-                <div class="card">
-                    <h3><i class="fa-solid fa-triangle-exclamation"></i> Powergaming</h3>
-                    <p>Gerçek hayatta yapılması imkansız hareketleri oyunda yapmak ve karşı tarafa rol imkanı tanımamaktır.</p>
-                </div>
-
-                <div class="card">
-                    <h3><i class="fa-solid fa-brain"></i> Metagaming</h3>
-                    <p>OOC yollarla (Discord, yayın vb.) öğrenilen bilgileri oyun içi karakterinize aktarıp kullanmaktır.</p>
-                </div>
-
-                <div class="card">
-                    <h3><i class="fa-solid fa-ghost"></i> Fear RP</h3>
-                    <p>Karakterinizin canını koruma zorunluluğudur. Başınıza silah dayandığında korku rolü yapmak zorunludur.</p>
-                </div>
-
-                <div class="card">
-                    <h3><i class="fa-solid fa-xmark"></i> Fail RP</h3>
-                    <p>Roleplay mantığına ve gerçekçiliğe tamamen aykırı davranışlar sergilemektir.</p>
-                </div>
-
-                <div class="card">
-                    <h3><i class="fa-solid fa-skull"></i> CK & PK</h3>
-                    <p><b>CK (Character Kill):</b> Karakterin kalıcı ölümü.<br><b>PK (Player Kill):</b> Karakterin o olaya dair hafızasını kaybetmesi.</p>
-                </div>
-
+                <a href="https://www.instagram.com/edirnerp_2026/" target="_blank" class="card link-card">
+                    <div class="link-icon instagram-icon"><i class="fa-brands fa-instagram"></i></div>
+                    <div>
+                        <h3 style="color:#fff;">Furkan</h3>
+                        <p style="color:var(--text-muted); font-size:13px;">@edirnerp_2026</p>
+                    </div>
+                </a>
             </div>
-        </div>
+        </section>
 
-        <!-- 5. SAYFA: İSİM ÖNERİCİ -->
-        <div id="generator" class="page-tab">
-            <div class="generator-box">
-                <h2 style="font-size: 1.6rem; margin-bottom: 10px; color: var(--text-main);">Karakter İsim Önerici</h2>
-                <p style="color: var(--text-sub);">Role uygun gerçekçi isimler üretmek için aşağıdaki butonları kullanabilirsin.</p>
-                
-                <div class="result-name" id="nameDisplay">Barış Karadağ</div>
-                
-                <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-                    <button class="btn btn-primary" onclick="generateName('male')"><i class="fa-solid fa-mars"></i> Erkek İsmi Üret</button>
-                    <button class="btn btn-secondary" onclick="generateName('female')"><i class="fa-solid fa-venus"></i> Kadın İsmi Üret</button>
-                </div>
-            </div>
-        </div>
+        <!-- 5. İLETİŞİM -->
+        <section id="iletisim" class="page-section">
+            <h2 class="section-title">İletişim</h2>
+            <div class="grid-3">
+                <a href="mailto:bedx69@istanbul-roleplay.work.gd" class="card link-card">
+                    <div class="link-icon"><i class="fa-solid fa-envelope"></i></div>
+                    <div>
+                        <h3 style="color:#fff;">Bedirhan (Destek)</h3>
+                        <p style="color:var(--text-muted); font-size:13px;">bedx69@istanbul-roleplay.work.gd</p>
+                    </div>
+                </a>
 
-        <!-- 6. SAYFA: KURALLAR -->
-        <div id="rules" class="page-tab">
-            <div class="section-header"><i class="fa-solid fa-gavel"></i> Sunucu Kuralları</div>
-            <div class="card" style="margin-bottom: 15px;">
-                <h3><i class="fa-solid fa-1"></i> Genel Saygı ve Düzen</h3>
-                <p>OOC ortamlarda, Discord'da veya oyun içerisinde diğer oyunculara küfür, hakaret, dini/milli değerlere sövme ve troll davranışlar kesinlikle yasaktır.</p>
+                <a href="mailto:tuna@istanbul-roleplay.work.gd" class="card link-card">
+                    <div class="link-icon"><i class="fa-solid fa-envelope"></i></div>
+                    <div>
+                        <h3 style="color:#fff;">Tuna (Geliştirici)</h3>
+                        <p style="color:var(--text-muted); font-size:13px;">tuna@istanbul-roleplay.work.gd</p>
+                    </div>
+                </a>
+
+                <a href="mailto:bugra@istanbul-roleplay.work.gd" class="card link-card">
+                    <div class="link-icon"><i class="fa-solid fa-envelope"></i></div>
+                    <div>
+                        <h3 style="color:#fff;">Buğra (Yönetim)</h3>
+                        <p style="color:var(--text-muted); font-size:13px;">bugra@istanbul-roleplay.work.gd</p>
+                    </div>
+                </a>
             </div>
-            <div class="card" style="margin-bottom: 15px;">
-                <h3><i class="fa-solid fa-2"></i> Rol Kalitesi ve Kurallar</h3>
-                <p>Tüm oyuncular Rol Sözlüğü sekmesinde belirtilen terimlere uymak zorundadır. Rolün akışını bozmak ve mantıksız hareket etmek ceza sebebidir.</p>
-            </div>
-            <div class="card">
-                <h3><i class="fa-solid fa-3"></i> Yönetim Kararları</h3>
-                <p>Oyun içerisinde yaşanan sorunlarda destek talebi açılmalı, yetkililerin kararlarına saygı gösterilmelidir. Hatalı karar düşünüldüğünde üst yönetime başvurulmalıdır.</p>
-            </div>
-        </div>
+        </section>
 
     </div>
 
-    <!-- FOOTER -->
+    <!-- Footer -->
     <footer>
-        &copy; 2026 İstanbul Roleplay Topluluğu. Tüm Hakları Saklıdır.
+        <p>&copy; 2026 <span>İstanbul Roleplay</span>. Tüm hakları saklıdır.</p>
     </footer>
 
-    <!-- JAVASCRIPT KODLARI -->
+    <!-- Tab Switching Script -->
     <script>
-        /* 1. INTRO KONTROLÜ */
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const intro = document.getElementById('intro-screen');
-                intro.style.opacity = '0';
-                intro.style.visibility = 'hidden';
-            }, 2000);
-        });
-
-        /* 2. SAYFA DEĞİŞTİRME MANTIĞI */
         function switchTab(tabId, element) {
-            const tabs = document.querySelectorAll('.page-tab');
-            tabs.forEach(tab => tab.classList.remove('active'));
+            // Hide all sections
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(sec => sec.classList.remove('active'));
 
-            const links = document.querySelectorAll('.nav-link');
-            links.forEach(link => link.classList.remove('active'));
-
+            // Show selected section
             document.getElementById(tabId).classList.add('active');
-            element.classList.add('active');
-        }
 
-        /* 3. CANLI ARKA PLAN PARÇACIKLARI */
-        const canvas = document.getElementById('particle-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 1.5 + 0.5;
-                this.speedX = (Math.random() - 0.5) * 0.3;
-                this.speedY = (Math.random() - 0.5) * 0.3;
+            // Update active nav button
+            const navButtons = document.querySelectorAll('.nav-btn');
+            navButtons.forEach(btn => btn.classList.remove('active'));
+            
+            if (element && element.classList.contains('nav-btn')) {
+                element.classList.add('active');
+            } else {
+                document.querySelector('.nav-btn').classList.add('active');
             }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-            }
-            draw() {
-                ctx.fillStyle = 'rgba(148, 163, 184, 0.2)';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
 
-        for (let i = 0; i < 40; i++) particles.push(new Particle());
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => { p.update(); p.draw(); });
-            requestAnimationFrame(animate);
-        }
-        animate();
-
-        /* 4. İSİM ÖNERİCİ MANTIĞI */
-        const males = ["Barış", "Mert", "Yavuz", "Emre", "Kaan", "Burak", "Serkan", "Oğuz", "Arda", "Eren"];
-        const females = ["Selin", "Zeynep", "Elif", "Buse", "Merve", "Aslı", "Derin", "Ece", "Melisa", "Ceren"];
-        const surnames = ["Karadağ", "Sancak", "Yılmaz", "Kaya", "Aydın", "Demir", "Çelik", "Şahin", "Koç", "Yıldırım"];
-
-        function generateName(gender) {
-            let list = gender === 'male' ? males : females;
-            let first = list[Math.floor(Math.random() * list.length)];
-            let last = surnames[Math.floor(Math.random() * surnames.length)];
-            document.getElementById('nameDisplay').innerText = `${first} ${last}`;
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
 </body>
