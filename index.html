@@ -25,6 +25,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
+            user-select: none;
         }
 
         body {
@@ -36,6 +37,71 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* --- CANLI ARKA PLAN CANVAS --- */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* --- INTRO LOADING SCREEN --- */
+        #intro-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-color);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .intro-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: var(--neon-glow-strong);
+        }
+
+        .intro-title span {
+            color: var(--primary-blue);
+        }
+
+        .loader-bar {
+            width: 220px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--neon-glow);
+        }
+
+        .loader-progress {
+            width: 0%;
+            height: 100%;
+            background: var(--primary-blue);
+            box-shadow: var(--neon-glow-strong);
+            animation: load 2s forwards ease-in-out;
+        }
+
+        @keyframes load {
+            0% { width: 0%; }
+            100% { width: 100%; }
         }
 
         /* Navbar */
@@ -72,7 +138,7 @@
         nav ul {
             display: flex;
             list-style: none;
-            gap: 15px;
+            gap: 12px;
         }
 
         nav ul li a {
@@ -161,6 +227,8 @@
             align-items: center;
             gap: 10px;
             font-size: 15px;
+            cursor: pointer;
+            border: none;
         }
 
         .btn-primary {
@@ -190,7 +258,7 @@
         /* Grid Layouts */
         .grid-2 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
             gap: 25px;
         }
 
@@ -299,6 +367,30 @@
         .tiktok-icon { color: #00f2fe; }
         .instagram-icon { color: #e1306c; }
 
+        /* Generator Box Styling */
+        .generator-box {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .result-name {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            background: rgba(3, 7, 18, 0.6);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 25px 0;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-shadow: var(--neon-glow);
+            box-shadow: inset 0 0 15px rgba(0, 162, 255, 0.1);
+        }
+
         /* Footer */
         footer {
             text-align: center;
@@ -313,7 +405,7 @@
 
         @media (max-width: 768px) {
             header { flex-direction: column; gap: 12px; padding: 15px; }
-            nav ul { gap: 8px; flex-wrap: wrap; justify-content: center; }
+            nav ul { gap: 6px; flex-wrap: wrap; justify-content: center; }
             .hero h1 { font-size: 28px; }
             .grid-2 { grid-template-columns: 1fr; }
         }
@@ -321,14 +413,27 @@
 </head>
 <body>
 
+    <!-- CANLI ARKA PLAN CANVAS -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- INTRO LOADING SCREEN -->
+    <div id="intro-screen">
+        <div class="intro-title">İstanbul <span>RP</span></div>
+        <div class="loader-bar">
+            <div class="loader-progress"></div>
+        </div>
+    </div>
+
     <!-- Header / Navbar -->
     <header>
-        <a class="logo" onclick="switchTab('ana-sayfa', this)">İstanbul <span>RP</span></a>
+        <a class="logo" onclick="switchTab('ana-sayfa', getNavBtn(0))">İstanbul <span>RP</span></a>
         <nav>
             <ul>
                 <li><a class="nav-btn active" onclick="switchTab('ana-sayfa', this)">Ana Sayfa</a></li>
+                <li><a class="nav-btn" onclick="switchTab('terimler', this)">Rol Sözlüğü</a></li>
+                <li><a class="nav-btn" onclick="switchTab('generator', this)">İsim Önerici</a></li>
                 <li><a class="nav-btn" onclick="switchTab('kurallar', this)">Kurallar</a></li>
-                <li><a class="nav-btn" onclick="switchTab('yetkililer', this)">Yetkili Ekibi</a></li>
+                <li><a class="nav-link nav-btn" onclick="switchTab('yetkililer', this)">Yetkili Ekibi</a></li>
                 <li><a class="nav-btn" onclick="switchTab('sosyal-medya', this)">Sosyal Medya</a></li>
                 <li><a class="nav-btn" onclick="switchTab('iletisim', this)">İletişim</a></li>
             </ul>
@@ -364,7 +469,53 @@
             </div>
         </section>
 
-        <!-- 2. KURALLAR -->
+        <!-- 2. ROL TERİMLERİ SÖZLÜĞÜ -->
+        <section id="terimler" class="page-section">
+            <h2 class="section-title">Kapsamlı Rol Terimleri Sözlüğü</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h2><i class="fa-solid fa-user-tag"></i> IC & OOC</h2>
+                    <p><strong>IC (In Character):</strong> Karakterinizin oyun içindeki dünyası ve eylemleri.<br><br><strong>OOC (Out Of Character):</strong> Karakterinizden bağımsız, gerçek hayattaki siz. IC ve OOC bilgiler kesinlikle karıştırılamaz.</p>
+                </div>
+                <div class="card">
+                    <h2><i class="fa-solid fa-keyboard"></i> /me & /do Komutları</h2>
+                    <p><strong>/me:</strong> Karakterinizin yaptığı fiziksel eylemleri ifade eder. <em>(Örn: /me cebindeki kimliği çıkarır)</em><br><br><strong>/do:</strong> Karakterin durumunu ve çevresel detayları açıklamak için kullanılır. <em>(Örn: /do Karakterin üstü arandığında silah bulunabilir mi?)</em></p>
+                </div>
+                <div class="card">
+                    <h2><i class="fa-solid fa-ban"></i> RDM & VDM</h2>
+                    <p><strong>RDM (Random Deathmatch):</strong> Geçerli bir rol sebebi olmadan oyuncuları öldürmektir.<br><br><strong>VDM (Vehicle Deathmatch):</strong> Aracınızı bir silah gibi kullanarak oyuncuları nedensizce ezmektir. İkisi de yasaktır.</p>
+                </div>
+                <div class="card">
+                    <h2><i class="fa-solid fa-triangle-exclamation"></i> Powergaming (PG)</h2>
+                    <p>Gerçek hayatta yapılması imkansız eylemleri rolde yapmak veya karşı tarafa rol imkanı tanımadan kendi lehine sonuçlar yaratmaktır.</p>
+                </div>
+                <div class="card">
+                    <h2><i class="fa-solid fa-brain"></i> Metagaming (MG)</h2>
+                    <p>Rol dışı (OOC) yollarla (Discord, yayın vb.) öğrenilen bilgileri oyun içinde (IC) karakteriniz biliyormuş gibi kullanmaktır.</p>
+                </div>
+                <div class="card">
+                    <h2><i class="fa-solid fa-ghost"></i> Fear RP</h2>
+                    <p>Karakterinizin hayatını riske atacak durumlarda (örneğin başınıza silah dayandığında) gerçekçi korku tepkisi vermeniz zorunludur.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. İSİM ÖNERİCİ -->
+        <section id="generator" class="page-section">
+            <h2 class="section-title">Karakter İsim Önerici</h2>
+            <div class="card generator-box">
+                <p style="color: var(--text-muted); font-size: 16px;">Roleplay'e uygun gerçekçi ve karizmatik isimler üretmek için aşağıdaki butonları kullanabilirsin.</p>
+                
+                <div class="result-name" id="nameDisplay">Barış Karadağ</div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="generateName('male')"><i class="fa-solid fa-mars"></i> Erkek İsmi Üret</button>
+                    <button class="btn btn-secondary" onclick="generateName('female')"><i class="fa-solid fa-venus"></i> Kadın İsmi Üret</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. KURALLAR -->
         <section id="kurallar" class="page-section">
             <h2 class="section-title">Sunucu Kuralları</h2>
             <div class="grid-2">
@@ -390,7 +541,7 @@
             </div>
         </section>
 
-        <!-- 3. YETKİLİ EKİBİ -->
+        <!-- 5. YETKİLİ EKİBİ -->
         <section id="yetkililer" class="page-section">
             <h2 class="section-title">Yetkili Ekibi</h2>
             <div class="grid-3">
@@ -427,7 +578,7 @@
             </div>
         </section>
 
-        <!-- 4. SOSYAL MEDYA -->
+        <!-- 6. SOSYAL MEDYA -->
         <section id="sosyal-medya" class="page-section">
             <h2 class="section-title">Sosyal Medya Hesaplarımız</h2>
             <div class="grid-3">
@@ -473,7 +624,7 @@
             </div>
         </section>
 
-        <!-- 5. İLETİŞİM -->
+        <!-- 7. İLETİŞİM -->
         <section id="iletisim" class="page-section">
             <h2 class="section-title">İletişim</h2>
             <div class="grid-3">
@@ -510,28 +661,91 @@
         <p>&copy; 2026 <span>İstanbul Roleplay</span>. Tüm hakları saklıdır.</p>
     </footer>
 
-    <!-- Tab Switching Script -->
+    <!-- Scripts -->
     <script>
+        /* 1. INTRO KONTROLÜ */
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const intro = document.getElementById('intro-screen');
+                intro.style.opacity = '0';
+                intro.style.visibility = 'hidden';
+            }, 2000);
+        });
+
+        /* 2. TAB SWITCHING */
         function switchTab(tabId, element) {
-            // Hide all sections
             const sections = document.querySelectorAll('.page-section');
             sections.forEach(sec => sec.classList.remove('active'));
 
-            // Show selected section
             document.getElementById(tabId).classList.add('active');
 
-            // Update active nav button
             const navButtons = document.querySelectorAll('.nav-btn');
             navButtons.forEach(btn => btn.classList.remove('active'));
             
             if (element && element.classList.contains('nav-btn')) {
                 element.classList.add('active');
-            } else {
-                document.querySelector('.nav-btn').classList.add('active');
             }
 
-            // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function getNavBtn(index) {
+            return document.querySelectorAll('.nav-btn')[index];
+        }
+
+        /* 3. PARÇACIKLI CANLI ARKA PLAN */
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 1.5 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.4;
+                this.speedY = (Math.random() - 0.5) * 0.4;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(0, 162, 255, 0.3)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 45; i++) particles.push(new Particle());
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        /* 4. İSİM ÖNERİCİ MANTIĞI */
+        const males = ["Barış", "Mert", "Yavuz", "Emre", "Kaan", "Burak", "Serkan", "Oğuz", "Arda", "Eren", "Volkan", "Deniz"];
+        const females = ["Selin", "Zeynep", "Elif", "Buse", "Merve", "Aslı", "Derin", "Ece", "Melisa", "Ceren", "Simge"];
+        const surnames = ["Karadağ", "Sancak", "Yılmaz", "Kaya", "Aydın", "Demir", "Çelik", "Şahin", "Koç", "Yıldırım", "Korkmaz"];
+
+        function generateName(gender) {
+            let list = gender === 'male' ? males : females;
+            let first = list[Math.floor(Math.random() * list.length)];
+            let last = surnames[Math.floor(Math.random() * surnames.length)];
+            document.getElementById('nameDisplay').innerText = `${first} ${last}`;
         }
     </script>
 </body>
