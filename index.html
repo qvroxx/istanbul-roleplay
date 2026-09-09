@@ -1,3 +1,395 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İstanbul Roleplay - Official Website</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #030712;
+            --card-bg: rgba(10, 20, 42, 0.7);
+            --border-color: rgba(0, 162, 255, 0.3);
+            --primary-blue: #00a2ff;
+            --neon-glow: 0 0 15px rgba(0, 162, 255, 0.5);
+            --neon-glow-strong: 0 0 25px rgba(0, 162, 255, 0.8);
+            --text-color: #f1f5f9;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(0, 162, 255, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 102, 255, 0.12) 0%, transparent 50%);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(3, 7, 18, 0.85);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .logo span {
+            color: var(--primary-blue);
+            text-shadow: var(--neon-glow);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 15px;
+        }
+
+        nav ul li a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            cursor: pointer;
+            padding: 8px 14px;
+            border-radius: 8px;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: #fff;
+            background: rgba(0, 162, 255, 0.15);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--neon-glow);
+            text-shadow: var(--neon-glow);
+        }
+
+        /* Main Container & Page Sections */
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 130px 20px 60px;
+            flex: 1;
+        }
+
+        .page-section {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out forwards;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero Card */
+        .hero {
+            text-align: center;
+            padding: 50px 20px;
+            margin-bottom: 40px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            box-shadow: var(--neon-glow);
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: #fff;
+            text-shadow: var(--neon-glow-strong);
+        }
+
+        .hero p {
+            font-size: 17px;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+        }
+
+        .btn-primary {
+            background: var(--primary-blue);
+            color: #fff;
+            box-shadow: var(--neon-glow);
+        }
+
+        .btn-primary:hover {
+            box-shadow: var(--neon-glow-strong);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 162, 255, 0.1);
+            border-color: var(--primary-blue);
+            box-shadow: var(--neon-glow);
+            transform: translateY(-2px);
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        /* Glass Cards */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .card:hover {
+            border-color: var(--primary-blue);
+            box-shadow: var(--neon-glow);
+            transform: translateY(-4px);
+        }
+
+        .card h2 {
+            font-size: 22px;
+            color: #fff;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card h2 i {
+            color: var(--primary-blue);
+            text-shadow: var(--neon-glow);
+        }
+
+        /* Section Titles */
+        .section-title {
+            text-align: center;
+            font-size: 30px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 35px;
+            text-shadow: var(--neon-glow);
+        }
+
+        /* Rules List */
+        .rules-list { list-style: none; }
+        .rules-list li {
+            position: relative;
+            padding-left: 22px;
+            margin-bottom: 12px;
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+        .rules-list li::before {
+            content: "➢";
+            position: absolute;
+            left: 0;
+            color: var(--primary-blue);
+        }
+
+        /* Staff Cards */
+        .staff-card { text-align: center; padding: 25px; }
+        .staff-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(0, 162, 255, 0.1);
+            border: 2px solid var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 28px;
+            color: var(--primary-blue);
+            box-shadow: var(--neon-glow);
+        }
+
+        /* Link & Contact Cards */
+        .link-card {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 20px;
+            text-decoration: none;
+            color: inherit;
+        }
+        .link-icon {
+            font-size: 26px;
+            color: var(--primary-blue);
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 162, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+        .tiktok-icon { color: #00f2fe; }
+        .instagram-icon { color: #e1306c; }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid var(--border-color);
+            background: rgba(3, 7, 18, 0.95);
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        footer span { color: var(--primary-blue); }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 12px; padding: 15px; }
+            nav ul { gap: 8px; flex-wrap: wrap; justify-content: center; }
+            .hero h1 { font-size: 28px; }
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header>
+        <a class="logo" onclick="switchTab('ana-sayfa', this)">İstanbul <span>RP</span></a>
+        <nav>
+            <ul>
+                <li><a class="nav-btn active" onclick="switchTab('ana-sayfa', this)">Ana Sayfa</a></li>
+                <li><a class="nav-btn" onclick="switchTab('kurallar', this)">Kurallar</a></li>
+                <li><a class="nav-btn" onclick="switchTab('yetkililer', this)">Yetkili Ekibi</a></li>
+                <li><a class="nav-btn" onclick="switchTab('sosyal-medya', this)">Sosyal Medya</a></li>
+                <li><a class="nav-btn" onclick="switchTab('iletisim', this)">İletişim</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <!-- 1. ANA SAYFA -->
+        <section id="ana-sayfa" class="page-section active">
+            <div class="hero">
+                <h1>İstanbul Roleplay'e Hoş Geldiniz</h1>
+                <p>Gerçekçi şehir atmosferi, aktif topluluk ve benzersiz rol deneyimi için aramıza katılın!</p>
+                <div class="btn-group">
+                    <a href="https://discord.gg/9W7m69B7K9" target="_blank" class="btn btn-primary"><i class="fa-brands fa-discord"></i> Discord Server</a>
+                    <a href="https://www.roblox.com/communities/35165992/Edirne-Roleplay-V2#!/about" target="_blank" class="btn btn-secondary"><i class="fa-solid fa-gamepad"></i> Roblox Grubu</a>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h2><i class="fa-solid fa-compass"></i> Vizyonumuz</h2>
+                    <p>Roblox üzerinde faaliyet gösteren İstanbul Roleplay olarak hedefimiz; kaliteyi, adaleti, disiplini ve gerçekçi rol deneyimini bir araya getirerek Türkiye'nin örnek roleplay topluluklarından biri olmaktır.</p>
+                    <br>
+                    <p>Topluluğumuz içerisinde her oyuncunun eşit haklara sahip olduğu, emeğin karşılık gördüğü ve düzenin korunarak herkes için güvenli bir ortam oluşturulduğu bir yapı inşa etmeyi amaçlıyoruz.</p>
+                </div>
+                <div class="card">
+                    <h2><i class="fa-solid fa-bullseye"></i> Misyonumuz</h2>
+                    <p>İstanbul Roleplay olarak misyonumuz; oyuncularımıza adaletli, düzenli, güvenli ve kaliteli bir roleplay ortamı sunmaktır.</p>
+                    <br>
+                    <p>Yönetim ekibimiz; tarafsızlık, dürüstlük ve sorumluluk ilkeleri doğrultusunda hareket ederek topluluk düzenini korumayı ve oyuncu haklarını gözetmeyi temel görev kabul eder.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. KURALLAR -->
+        <section id="kurallar" class="page-section">
+            <h2 class="section-title">Sunucu Kuralları</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h2><i class="fa-solid fa-book-bookmark"></i> Genel Roleplay Kuralları</h2>
+                    <ul class="rules-list">
+                        <li><strong>VDM (Vehicle Deathmatch):</strong> Aracınızı bir silah gibi kullanarak oyuncuları nedensizce ezmek yasaktır.</li>
+                        <li><strong>RDM (Random Deathmatch):</strong> Geçerli bir rol sebebi olmadan oyuncuları öldürmek yasaktır.</li>
+                        <li><strong>Fear RP:</strong> Karakterinizin hayatını riske atacak durumlarda gerçekçi korku tepkisi vermeniz zorunludur.</li>
+                        <li><strong>Powergaming (PG):</strong> Gerçek hayatta yapılması imkansız eylemleri rolde yapmak yasaktır.</li>
+                        <li><strong>Metagaming (MG):</strong> Rol dışı (OOC) bilgileri rol içinde (IC) kullanmak kesinlikle yasaktır.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h2><i class="fa-solid fa-shield-halved"></i> Sunucu İçi Düzen Kuralları</h2>
+                    <ul class="rules-list">
+                        <li><strong>OOC Konuşma:</strong> Oyun içerisinde rolü bölerek Rol Dışı (OOC) konuşmak yasaktır.</li>
+                        <li><strong>Saygı ve Üslup:</strong> Tüm oyunculara ve yetkili ekibine karşı saygılı bir üslup kullanmak zorunludur.</li>
+                        <li><strong>Bug ve Hile Kullanımı:</strong> Oyun açıklarından faydalanmak veya hile kullanmak kalıcı ban sebebidir.</li>
+                        <li><strong>Rol Kalitesi:</strong> Troll rol yapmak ve rol akışını bozacak hareketlerde bulunmak yasaktır.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
         <!-- 3. YETKİLİ EKİBİ -->
         <section id="yetkililer" class="page-section">
             <h2 class="section-title">Yetkili Ekibi</h2>
@@ -5,32 +397,142 @@
                 <div class="card staff-card">
                     <div class="staff-avatar"><i class="fa-solid fa-crown"></i></div>
                     <h3>Samet</h3>
-                    <p style="color: var(--primary-blue);">Founder</p>
+                    <p style="color: var(--primary-blue); font-weight: 500; font-size: 14px; margin-top: 4px;">Founder</p>
                 </div>
                 <div class="card staff-card">
                     <div class="staff-avatar"><i class="fa-solid fa-user-gear"></i></div>
                     <h3>Bedirhan</h3>
-                    <p style="color: var(--primary-blue);">Kurucu Temsilcisi</p>
+                    <p style="color: var(--primary-blue); font-weight: 500; font-size: 14px; margin-top: 4px;">Kurucu Temsilcisi</p>
                 </div>
                 <div class="card staff-card">
                     <div class="staff-avatar"><i class="fa-solid fa-user-gear"></i></div>
                     <h3>Buğra</h3>
-                    <p style="color: var(--primary-blue);">Genel Yönetici</p>
+                    <p style="color: var(--primary-blue); font-weight: 500; font-size: 14px; margin-top: 4px;">Genel Yönetici</p>
                 </div>
                 <div class="card staff-card">
                     <div class="staff-avatar"><i class="fa-solid fa-code"></i></div>
                     <h3>Tuna</h3>
-                    <p style="color: var(--primary-blue);">Genel Yönetici Yardımcısı & Site Geliştiricisi</p>
+                    <p style="color: var(--primary-blue); font-weight: 500; font-size: 14px; margin-top: 4px;">Genel Yönetici Yardımcısı & Site Geliştiricisi</p>
                 </div>
                 <div class="card staff-card">
                     <div class="staff-avatar"><i class="fa-solid fa-user-shield"></i></div>
                     <h3>Furkan</h3>
-                    <p style="color: var(--primary-blue);">Genel Yönetici Yardımcısı</p>
+                    <p style="color: var(--primary-blue); font-weight: 500; font-size: 14px; margin-top: 4px;">Genel Yönetici Yardımcısı</p>
                 </div>
                 <div class="card staff-card">
                     <div class="staff-avatar"><i class="fa-solid fa-user-check"></i></div>
                     <h3>Kerem</h3>
-                    <p style="color: var(--primary-blue);">Deneme Yönetim Ekibi</p>
+                    <p style="color: var(--primary-blue); font-weight: 500; font-size: 14px; margin-top: 4px;">Deneme Yönetim Ekibi</p>
                 </div>
             </div>
         </section>
+
+        <!-- 4. SOSYAL MEDYA -->
+        <section id="sosyal-medya" class="page-section">
+            <h2 class="section-title">Sosyal Medya Hesaplarımız</h2>
+            <div class="grid-3">
+                <a href="https://www.tiktok.com/@prof.dr.slayer" target="_blank" class="card link-card">
+                    <div class="link-icon tiktok-icon"><i class="fa-brands fa-tiktok"></i></div>
+                    <div>
+                        <h3 style="color:#fff;">Samet</h3>
+                        <p style="color:var(--text-muted); font-size:13px;">@prof.dr.slayer</p>
+                    </div>
+                </a>
+
+                <a href="https://www.tiktok.com/@edirnebelediyesi22" target="_blank" class="card link-card">
+                    <div class="link-icon tiktok-icon"><i class="fa-brands fa-tiktok"></i></div>
+                    <div>
+                        <h3 style="color:#fff;">İstanbul Roleplay</h3>
+                        <p style="color:var(--text-muted); font-size:13px;">@edirnebelediyesi22</p>
+                    </div>
+                </a>
+
+                <a href="https://www.tiktok.com/@edirnebelediyesi55" target="_blank" class="card link-card">
+                    <div class="link-icon tiktok-icon"><i class="fa-brands fa-tiktok"></i></div>
+                    <div>
+                        <h3 style="color:#fff;">İstanbul Roleplay</h3>
+                        <p style="color:var(--text-muted); font-size:13px;">@edirnebelediyesi55</p>
+                    </div>
+                </a>
+
+                <a href="https://www.instagram.com/roblox_istanbulrp?igsi=MXZja3YwbnhsMHJobw%3D%3D&utm_source=qr" target="_blank" class="card link-card">
+                    <div class="link-icon instagram-icon"><i class="fa-brands fa-instagram"></i></div>
+                    <div>
+                        <h3 style="color:#fff;">İstanbul Roleplay</h3>
+                        <p style="color:var(--text-muted); font-size:13px;">@roblox_istanbulrp</p>
+                    </div>
+                </a>
+
+                <a href="https://www.instagram.com/edirnerp_2026/" target="_blank" class="card link-card">
+                    <div class="link-icon instagram-icon"><i class="fa-brands fa-instagram"></i></div>
+                    <div>
+                        <h3 style="color:#fff;">Furkan</h3>
+                        <p style="color:var(--text-muted); font-size:13px;">@edirnerp_2026</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- 5. İLETİŞİM -->
+        <section id="iletisim" class="page-section">
+            <h2 class="section-title">İletişim</h2>
+            <div class="grid-3">
+                <a href="mailto:bedx69@istanbul-roleplay.work.gd" class="card link-card">
+                    <div class="link-icon"><i class="fa-solid fa-envelope"></i></div>
+                    <div>
+                        <h3 style="color:#fff;">Bedirhan (Destek)</h3>
+                        <p style="color:var(--text-muted); font-size:13px;">bedx69@istanbul-roleplay.work.gd</p>
+                    </div>
+                </a>
+
+                <a href="mailto:tuna@istanbul-roleplay.work.gd" class="card link-card">
+                    <div class="link-icon"><i class="fa-solid fa-envelope"></i></div>
+                    <div>
+                        <h3 style="color:#fff;">Tuna (Geliştirici)</h3>
+                        <p style="color:var(--text-muted); font-size:13px;">tuna@istanbul-roleplay.work.gd</p>
+                    </div>
+                </a>
+
+                <a href="mailto:bugra@istanbul-roleplay.work.gd" class="card link-card">
+                    <div class="link-icon"><i class="fa-solid fa-envelope"></i></div>
+                    <div>
+                        <h3 style="color:#fff;">Buğra (Yönetim)</h3>
+                        <p style="color:var(--text-muted); font-size:13px;">bugra@istanbul-roleplay.work.gd</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 <span>İstanbul Roleplay</span>. Tüm hakları saklıdır.</p>
+    </footer>
+
+    <!-- Tab Switching Script -->
+    <script>
+        function switchTab(tabId, element) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(sec => sec.classList.remove('active'));
+
+            // Show selected section
+            document.getElementById(tabId).classList.add('active');
+
+            // Update active nav button
+            const navButtons = document.querySelectorAll('.nav-btn');
+            navButtons.forEach(btn => btn.classList.remove('active'));
+            
+            if (element && element.classList.contains('nav-btn')) {
+                element.classList.add('active');
+            } else {
+                document.querySelector('.nav-btn').classList.add('active');
+            }
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
