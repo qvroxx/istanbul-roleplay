@@ -6,6 +6,14 @@
     <title>İstanbul Roleplay | Roblox</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #0088ff;
+            --primary-glow: #00e1ff;
+            --bg-dark: #0a0c10;
+            --card-bg: rgba(20, 24, 33, 0.75);
+            --border-glow: rgba(0, 200, 255, 0.4);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -14,18 +22,24 @@
         }
 
         body {
-            background-color: #121214;
+            background-color: var(--bg-dark);
             color: #ffffff;
             line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(0, 102, 255, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(0, 225, 255, 0.08) 0%, transparent 40%);
+            background-attachment: fixed;
         }
 
         header {
-            background: rgba(18, 18, 20, 0.95);
+            background: rgba(10, 12, 16, 0.85);
+            backdrop-filter: blur(12px);
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 1000;
-            border-bottom: 2px solid #0066ff;
+            border-bottom: 1px solid var(--border-glow);
+            box-shadow: 0 4px 20px rgba(0, 102, 255, 0.2);
         }
 
         nav {
@@ -38,63 +52,140 @@
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
+            font-size: 1.6rem;
+            font-weight: 800;
             color: #fff;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0, 225, 255, 0.5);
         }
 
         .logo span {
-            color: #0066ff;
+            color: var(--primary-glow);
         }
 
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 1.5rem;
+            gap: 1.8rem;
         }
 
         .nav-links a {
-            color: #ccc;
+            color: #a0aec0;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             transition: 0.3s;
+            letter-spacing: 0.5px;
         }
 
         .nav-links a:hover, .nav-links a.active {
-            color: #0066ff;
+            color: var(--primary-glow);
+            text-shadow: 0 0 8px var(--primary-glow);
         }
 
         .page {
             display: none;
-            padding: 100px 2rem 50px 2rem;
+            padding: 110px 2rem 50px 2rem;
             max-width: 1200px;
             margin: 0 auto;
-            min-height: 80vh;
+            min-height: 85vh;
         }
 
         .page.active {
             display: block;
         }
 
+        /* Hero Kutusu */
         .hero {
             text-align: center;
-            padding: 4rem 1rem;
-            background: linear-gradient(180deg, rgba(0, 102, 255, 0.15) 0%, rgba(18, 18, 20, 1) 100%);
-            border-radius: 15px;
-            margin-bottom: 2rem;
+            padding: 4rem 2rem;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid var(--border-glow);
+            box-shadow: 0 0 25px rgba(0, 136, 255, 0.15), inset 0 0 15px rgba(0, 225, 255, 0.05);
+            margin-bottom: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary-glow), transparent);
+            animation: lighting 4s infinite;
+        }
+
+        @keyframes lighting {
+            0% { left: -100%; }
+            50%, 100% { left: 100%; }
         }
 
         .hero h1 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, var(--primary-glow) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 225, 255, 0.3);
         }
 
         .hero p {
-            font-size: 1.1rem;
-            color: #aaa;
+            font-size: 1.15rem;
+            color: #cbd5e1;
             margin-bottom: 2rem;
+        }
+
+        /* Vizyon & Misyon Izgarası */
+        .vm-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .vm-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            padding: 2.2rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-glow);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .vm-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-glow);
+            box-shadow: 0 0 25px rgba(0, 225, 255, 0.25);
+        }
+
+        .vm-card h2 {
+            font-size: 1.6rem;
+            color: var(--primary-glow);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 1px solid rgba(0, 225, 255, 0.2);
+            padding-bottom: 0.75rem;
+            text-shadow: 0 0 10px rgba(0, 225, 255, 0.4);
+        }
+
+        .vm-card p {
+            color: #cbd5e1;
+            font-size: 0.98rem;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .vm-card p:last-child {
+            margin-bottom: 0;
         }
 
         .btn-container {
@@ -105,46 +196,60 @@
         }
 
         .btn {
-            padding: 0.8rem 2rem;
-            border-radius: 8px;
+            padding: 0.9rem 2.2rem;
+            border-radius: 10px;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 700;
             font-size: 1rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            transition: 0.3s transform, 0.3s background;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
+            gap: 0.6rem;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
         }
 
         .btn-discord {
-            background-color: #5865F2;
+            background: linear-gradient(135deg, #5865F2 0%, #404EED 100%);
             color: #fff;
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4);
+        }
+
+        .btn-discord:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(88, 101, 242, 0.6);
         }
 
         .btn-roblox {
-            background-color: #000;
-            border: 1px solid #0066ff;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--primary-glow);
             color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 225, 255, 0.2);
+        }
+
+        .btn-roblox:hover {
+            transform: translateY(-3px);
+            background: var(--primary-glow);
+            color: #000;
+            box-shadow: 0 6px 20px rgba(0, 225, 255, 0.5);
         }
 
         .section-title {
             text-align: center;
-            font-size: 2rem;
+            font-size: 2.2rem;
             margin-bottom: 2rem;
             position: relative;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(0, 225, 255, 0.3);
         }
 
         .section-title::after {
             content: '';
             display: block;
-            width: 60px;
+            width: 80px;
             height: 3px;
-            background: #0066ff;
-            margin: 0.5rem auto 0;
+            background: linear-gradient(90deg, transparent, var(--primary-glow), transparent);
+            margin: 0.6rem auto 0;
+            box-shadow: 0 0 10px var(--primary-glow);
         }
 
         .rules-container {
@@ -154,86 +259,101 @@
         }
 
         .rule-box {
-            background: #1e1e24;
-            padding: 1.5rem;
-            border-radius: 10px;
-            border-left: 4px solid #0066ff;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            padding: 1.8rem;
+            border-radius: 14px;
+            border-left: 4px solid var(--primary-glow);
+            border-top: 1px solid var(--border-glow);
+            border-right: 1px solid var(--border-glow);
+            border-bottom: 1px solid var(--border-glow);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
 
         .rule-box h3 {
-            margin-bottom: 1rem;
-            color: #0066ff;
+            margin-bottom: 1.2rem;
+            color: var(--primary-glow);
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.6rem;
+            font-size: 1.3rem;
         }
 
         .rule-box ul {
             list-style-position: inside;
-            color: #ccc;
+            color: #cbd5e1;
         }
 
         .rule-box ul li {
-            margin-bottom: 0.8rem;
-            line-height: 1.5;
+            margin-bottom: 0.9rem;
+            line-height: 1.6;
         }
 
         .team-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.8rem;
         }
 
         .team-card {
-            background: #1e1e24;
-            padding: 1.5rem;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
             text-align: center;
-            border-radius: 10px;
-            border: 1px solid #333;
-            transition: 0.3s transform;
+            border-radius: 14px;
+            border: 1px solid var(--border-glow);
+            transition: all 0.3s ease;
         }
 
         .team-card:hover {
             transform: translateY(-5px);
-            border-color: #0066ff;
+            border-color: var(--primary-glow);
+            box-shadow: 0 0 20px rgba(0, 225, 255, 0.3);
         }
 
         .team-card i {
-            font-size: 2.8rem;
-            color: #0066ff;
-            margin-bottom: 1rem;
+            font-size: 3rem;
+            color: var(--primary-glow);
+            margin-bottom: 1.2rem;
+            text-shadow: 0 0 15px rgba(0, 225, 255, 0.5);
         }
 
         .team-card h3 {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
+            font-size: 1.3rem;
         }
 
         .team-card p {
-            color: #aaa;
-            font-size: 0.9rem;
+            color: #94a3b8;
+            font-size: 0.95rem;
+            font-weight: 500;
         }
 
         .contact-box {
-            background: #1e1e24;
-            padding: 2rem;
-            border-radius: 10px;
-            max-width: 600px;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 16px;
+            max-width: 650px;
             margin: 0 auto;
             text-align: center;
+            border: 1px solid var(--border-glow);
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
         }
 
         .contact-box p {
-            margin-bottom: 1.5rem;
-            color: #ccc;
+            margin-bottom: 1.8rem;
+            color: #cbd5e1;
+            font-size: 1.05rem;
         }
 
         footer {
             text-align: center;
-            padding: 1.5rem;
-            background: #0a0a0c;
-            color: #666;
-            font-size: 0.9rem;
-            border-top: 1px solid #222;
+            padding: 1.8rem;
+            background: #060709;
+            color: #64748b;
+            font-size: 0.95rem;
+            border-top: 1px solid rgba(0, 200, 255, 0.15);
         }
 
         @media (max-width: 768px) {
@@ -246,7 +366,10 @@
                 font-size: 0.9rem;
             }
             .hero h1 {
-                font-size: 1.8rem;
+                font-size: 2rem;
+            }
+            .vm-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -277,6 +400,25 @@
                 <a href="https://www.roblox.com/tr/communities/677709200/Vatanda#!/about" target="_blank" class="btn btn-roblox">
                     <i class="fa-solid fa-gamepad"></i> Roblox Grubu
                 </a>
+            </div>
+        </div>
+
+        <!-- VİZYON & MİSYON KISMI -->
+        <div class="vm-grid">
+            <div class="vm-card">
+                <h2><i class="fa-solid fa-eye"></i> Vizyonumuz</h2>
+                <p>Roblox üzerinde faaliyet gösteren İstanbul Roleplay olarak hedefimiz; kaliteyi, adaleti, disiplini ve gerçekçi rol deneyimini bir araya getirerek Türkiye’nin örnek roleplay topluluklarından biri olmaktır.</p>
+                <p>Topluluğumuz içerisinde her oyuncunun eşit haklara sahip olduğu, emeğin karşılık gördüğü, saygının temel kural kabul edildiği ve düzenin korunarak herkes için güvenli bir ortam oluşturulduğu bir yapı inşa etmeyi amaçlıyoruz.</p>
+                <p>Yılların roleplay tecrübesiyle oluşturulan yönetim anlayışımız; yalnızca kuralları uygulayan değil, aynı zamanda oyuncuların hakkını koruyan, sunucu düzenini sürdüren ve topluluk güvenini ön planda tutan bir sistem üzerine kuruludur.</p>
+                <p>Amacımız sadece bir oyun sunucusu olmak değil; dostlukların kurulduğu, kaliteli rollerin döndüğü, profesyonel yönetimin hissedildiği ve herkesin kendisini değerli hissettiği uzun ömürlü bir roleplay topluluğu oluşturmaktır.</p>
+            </div>
+
+            <div class="vm-card">
+                <h2><i class="fa-solid fa-bullseye"></i> Misyonumuz</h2>
+                <p>İstanbul Roleplay olarak misyonumuz; oyuncularımıza adaletli, düzenli, güvenli ve kaliteli bir roleplay ortamı sunmaktır.</p>
+                <p>Yönetim ekibimiz; tarafsızlık, dürüstlük ve sorumluluk ilkeleri doğrultusunda hareket ederek topluluk düzenini korumayı, oyuncu haklarını gözetmeyi ve roleplay kalitesini sürekli geliştirmeyi temel görev kabul eder.</p>
+                <p>Sunucumuzda; yetkinin güç göstergesi değil, sorumluluk olduğu bilinciyle hareket edilir. Her karar; topluluk huzuru, adalet anlayışı ve sunucu güvenliği dikkate alınarak değerlendirilir.</p>
+                <p>Kurmuş olduğumuz sistem ile amacımız; insanların keyifle vakit geçirebildiği, gerçekçi senaryolar oluşturabildiği, saygılı iletişimin hakim olduğu ve herkesin kendisini bu ailenin bir parçası olarak hissedebildiği örnek bir roleplay ortamı oluşturmaktır.</p>
             </div>
         </div>
     </div>
