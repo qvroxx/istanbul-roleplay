@@ -292,6 +292,8 @@
             backdrop-filter: blur(12px);
             transition: all 0.3s ease;
             box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            text-decoration: none;
+            color: inherit;
         }
 
         .card:hover {
@@ -338,7 +340,12 @@
             color: var(--primary-blue);
         }
 
-        .staff-card { text-align: center; padding: 25px; }
+        .staff-card { 
+            text-align: center; 
+            padding: 25px; 
+            display: block; 
+            cursor: pointer;
+        }
         .staff-avatar {
             width: 65px;
             height: 65px;
@@ -352,6 +359,26 @@
             font-size: 26px;
             color: var(--primary-blue);
             box-shadow: var(--neon-glow);
+            transition: all 0.3s ease;
+        }
+
+        .staff-card:hover .staff-avatar {
+            background: var(--primary-blue);
+            color: #fff;
+            box-shadow: var(--neon-glow-strong);
+        }
+
+        .discord-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--primary-blue);
+            margin-top: 8px;
+            background: rgba(0, 162, 255, 0.1);
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
         }
 
         .link-card {
@@ -405,11 +432,9 @@
         }
         footer span { color: var(--primary-blue); }
 
-        /* MOBİL TASARIM (RESPONSIVE) DÜZENLEMESİ */
+        /* MOBİL TASARIM (RESPONSIVE) */
         @media (max-width: 850px) {
-            .menu-toggle {
-                display: block; /* 3 çizgi butonunu görünür yap */
-            }
+            .menu-toggle { display: block; }
 
             nav ul {
                 position: absolute;
@@ -422,13 +447,11 @@
                 flex-direction: column;
                 padding: 15px;
                 gap: 8px;
-                display: none; /* Varsayılan kapalı */
+                display: none;
                 box-shadow: 0 10px 25px rgba(0,0,0,0.8);
             }
 
-            nav ul.show {
-                display: flex; /* Butona basınca açılır */
-            }
+            nav ul.show { display: flex; }
 
             nav ul li a {
                 text-align: center;
@@ -436,10 +459,7 @@
                 font-size: 15px;
             }
 
-            .container {
-                padding-top: 100px;
-            }
-
+            .container { padding-top: 100px; }
             .hero h1 { font-size: 26px; }
             .hero p { font-size: 14px; }
             .grid-2, .grid-3 { grid-template-columns: 1fr; }
@@ -582,40 +602,52 @@
             </div>
         </section>
 
-        <!-- 5. YETKİLİ EKİBİ -->
+        <!-- 5. YETKİLİ EKİBİ (DİREKT DISCORD PROFİLLERİNE BAĞLANDI) -->
         <section id="yetkililer" class="page-section">
             <h2 class="section-title">Yetkili Ekibi</h2>
+            <p style="text-align: center; color: var(--text-muted); margin-bottom: 25px; font-size: 14px;">Profillere tıklayarak yetkililerimiz ile Discord üzerinden iletişime geçebilirsiniz.</p>
             <div class="grid-3">
-                <div class="card staff-card">
+                <a href="https://discord.com/users/1160622125950972045" target="_blank" class="card staff-card">
                     <div class="staff-avatar"><i class="fa-solid fa-crown"></i></div>
                     <h3>Samet</h3>
                     <p style="color: var(--primary-blue); font-weight: 500; font-size: 13px; margin-top: 4px;">Founder</p>
-                </div>
-                <div class="card staff-card">
+                    <div class="discord-tag"><i class="fa-brands fa-discord"></i> Profilini Aç</div>
+                </a>
+
+                <a href="https://discord.com/users/1167462745524928671" target="_blank" class="card staff-card">
                     <div class="staff-avatar"><i class="fa-solid fa-user-gear"></i></div>
                     <h3>Bedirhan</h3>
                     <p style="color: var(--primary-blue); font-weight: 500; font-size: 13px; margin-top: 4px;">Kurucu Temsilcisi</p>
-                </div>
-                <div class="card staff-card">
+                    <div class="discord-tag"><i class="fa-brands fa-discord"></i> Profilini Aç</div>
+                </a>
+
+                <a href="https://discord.com/users/1193120970026778655" target="_blank" class="card staff-card">
                     <div class="staff-avatar"><i class="fa-solid fa-user-gear"></i></div>
                     <h3>Buğra</h3>
                     <p style="color: var(--primary-blue); font-weight: 500; font-size: 13px; margin-top: 4px;">Genel Yönetici</p>
-                </div>
-                <div class="card staff-card">
+                    <div class="discord-tag"><i class="fa-brands fa-discord"></i> Profilini Aç</div>
+                </a>
+
+                <a href="https://discord.com/users/1080897669431574609" target="_blank" class="card staff-card">
                     <div class="staff-avatar"><i class="fa-solid fa-code"></i></div>
                     <h3>Tuna</h3>
-                    <p style="color: var(--primary-blue); font-weight: 500; font-size: 13px; margin-top: 4px;">Genel Yönetici Yardımcısı & Site Geliştiricisi</p>
-                </div>
-                <div class="card staff-card">
+                    <p style="color: var(--primary-blue); font-weight: 500; font-size: 13px; margin-top: 4px;">Genel Yönetici Yardımcısı & Geliştirici</p>
+                    <div class="discord-tag"><i class="fa-brands fa-discord"></i> Profilini Aç</div>
+                </a>
+
+                <a href="https://discord.com/users/1519372636596080723" target="_blank" class="card staff-card">
                     <div class="staff-avatar"><i class="fa-solid fa-user-shield"></i></div>
                     <h3>Furkan</h3>
                     <p style="color: var(--primary-blue); font-weight: 500; font-size: 13px; margin-top: 4px;">Genel Yönetici Yardımcısı</p>
-                </div>
-                <div class="card staff-card">
+                    <div class="discord-tag"><i class="fa-brands fa-discord"></i> Profilini Aç</div>
+                </a>
+
+                <a href="https://discord.com/users/1257050851114090617" target="_blank" class="card staff-card">
                     <div class="staff-avatar"><i class="fa-solid fa-user-check"></i></div>
                     <h3>Kerem</h3>
                     <p style="color: var(--primary-blue); font-weight: 500; font-size: 13px; margin-top: 4px;">Deneme Yönetim Ekibi</p>
-                </div>
+                    <div class="discord-tag"><i class="fa-brands fa-discord"></i> Profilini Aç</div>
+                </a>
             </div>
         </section>
 
