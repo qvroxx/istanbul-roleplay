@@ -4,14 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>İstanbul Roleplay - Official Website</title>
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <!-- CANLI ARKA PLAN CANVAS -->
     <canvas id="particle-canvas"></canvas>
 
+    <!-- INTRO LOADING SCREEN -->
     <div id="intro-screen">
         <div class="intro-title">İstanbul <span>RP</span></div>
         <div class="loader-bar">
@@ -19,9 +24,11 @@
         </div>
     </div>
 
+    <!-- Header / Navbar -->
     <header>
         <a class="logo" onclick="switchTab('ana-sayfa', getNavBtn(0))">İstanbul <span>RP</span></a>
-
+        
+        <!-- Mobil Menü Butonu (3 Çizgi) -->
         <div class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
             <i class="fa-solid fa-bars"></i>
         </div>
@@ -41,6 +48,7 @@
 
     <div class="container">
 
+        <!-- 1. ANA SAYFA -->
         <section id="ana-sayfa" class="page-section active">
             <div class="hero">
                 <h1>İstanbul Roleplay'e Hoş Geldiniz</h1>
@@ -67,6 +75,7 @@
             </div>
         </section>
 
+        <!-- 2. ROL TERİMLERİ SÖZLÜĞÜ -->
         <section id="terimler" class="page-section">
             <h2 class="section-title">Kapsamlı Rol Terimleri Sözlüğü</h2>
             <div class="grid-2">
@@ -97,13 +106,14 @@
             </div>
         </section>
 
+        <!-- 3. İSİM ÖNERİCİ -->
         <section id="generator" class="page-section">
             <h2 class="section-title">Karakter İsim Önerici</h2>
             <div class="card generator-box">
                 <p style="color: var(--text-muted); font-size: 15px;">Roleplay'e uygun gerçekçi ve karizmatik isimler üretmek için aşağıdaki butonları kullanabilirsin.</p>
-
+                
                 <div class="result-name" id="nameDisplay">Barış Karadağ</div>
-
+                
                 <div class="btn-group">
                     <button class="btn btn-primary" onclick="generateName('male')"><i class="fa-solid fa-mars"></i> Erkek İsmi Üret</button>
                     <button class="btn btn-secondary" onclick="generateName('female')"><i class="fa-solid fa-venus"></i> Kadın İsmi Üret</button>
@@ -111,6 +121,7 @@
             </div>
         </section>
 
+        <!-- 4. KURALLAR -->
         <section id="kurallar" class="page-section">
             <h2 class="section-title">Sunucu Kuralları</h2>
             <div class="grid-2">
@@ -136,6 +147,7 @@
             </div>
         </section>
 
+        <!-- 5. YETKİLİ EKİBİ -->
         <section id="yetkililer" class="page-section">
             <h2 class="section-title">Yetkili Ekibi</h2>
             <div class="grid-3">
@@ -190,6 +202,7 @@
             </div>
         </section>
 
+        <!-- 6. SOSYAL MEDYA -->
         <section id="sosyal-medya" class="page-section">
             <h2 class="section-title">Sosyal Medya Hesaplarımız</h2>
             <div class="grid-3">
@@ -235,6 +248,7 @@
             </div>
         </section>
 
+        <!-- 7. İLETİŞİM -->
         <section id="iletisim" class="page-section">
             <h2 class="section-title">İletişim</h2>
             <div class="grid-3">
@@ -266,10 +280,12 @@
 
     </div>
 
+    <!-- Footer -->
     <footer>
         <p>&copy; 2026 <span>İstanbul Roleplay</span>. Tüm hakları saklıdır.   | Created by qvrox |</p>
     </footer>
 
+    <!-- Custom JS -->
     <script src="script.js"></script>
 </body>
 </html>
