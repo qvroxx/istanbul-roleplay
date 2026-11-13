@@ -19,7 +19,7 @@
 
 body {
     background-color: var(--bg-color);
-    background-image:
+    background-image: 
         radial-gradient(circle at 20% 20%, rgba(0, 162, 255, 0.12) 0%, transparent 50%),
         radial-gradient(circle at 80% 80%, rgba(0, 102, 255, 0.12) 0%, transparent 50%);
     color: var(--text-color);
@@ -30,7 +30,7 @@ body {
     overflow-x: hidden;
 }
 
-/* CANLI ARKA PLAN CANVAS */
+/* --- CANLI ARKA PLAN CANVAS --- */
 #particle-canvas {
     position: fixed;
     top: 0;
@@ -41,7 +41,7 @@ body {
     pointer-events: none;
 }
 
-/* INTRO LOADING SCREEN */
+/* --- INTRO LOADING SCREEN --- */
 #intro-screen {
     position: fixed;
     top: 0;
@@ -93,7 +93,7 @@ body {
     100% { width: 100%; }
 }
 
-/* HEADER / NAVBAR */
+/* Header / Navbar */
 header {
     position: fixed;
     top: 0;
@@ -124,7 +124,7 @@ header {
     text-shadow: var(--neon-glow);
 }
 
-/* MOBİL MENÜ BUTONU */
+/* 3 Çizgi Hamburger Menü Butonu */
 .menu-toggle {
     display: none;
     font-size: 24px;
@@ -156,8 +156,7 @@ nav ul li a {
     display: block;
 }
 
-nav ul li a:hover,
-nav ul li a.active {
+nav ul li a:hover, nav ul li a.active {
     color: #fff;
     background: rgba(0, 162, 255, 0.15);
     border: 1px solid var(--border-color);
@@ -165,7 +164,7 @@ nav ul li a.active {
     text-shadow: var(--neon-glow);
 }
 
-/* CONTAINER & SECTIONS */
+/* Container & Sections */
 .container {
     max-width: 1200px;
     width: 100%;
@@ -188,7 +187,7 @@ nav ul li a.active {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* HERO BOX */
+/* Hero Box */
 .hero {
     text-align: center;
     padding: 40px 20px;
@@ -260,7 +259,7 @@ nav ul li a.active {
     transform: translateY(-2px);
 }
 
-/* GRIDS */
+/* Grids */
 .grid-2 {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -273,7 +272,7 @@ nav ul li a.active {
     gap: 20px;
 }
 
-/* GLASS CARDS */
+/* Glass Cards */
 .card {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
@@ -313,10 +312,7 @@ nav ul li a.active {
     text-shadow: var(--neon-glow);
 }
 
-.rules-list {
-    list-style: none;
-}
-
+.rules-list { list-style: none; }
 .rules-list li {
     position: relative;
     padding-left: 20px;
@@ -324,7 +320,6 @@ nav ul li a.active {
     color: var(--text-muted);
     font-size: 14px;
 }
-
 .rules-list li::before {
     content: "➢";
     position: absolute;
@@ -332,15 +327,14 @@ nav ul li a.active {
     color: var(--primary-blue);
 }
 
-.staff-card {
-    text-align: center;
-    padding: 25px;
+.staff-card { 
+    text-align: center; 
+    padding: 25px; 
     text-decoration: none;
     color: inherit;
     display: block;
     cursor: pointer;
 }
-
 .staff-avatar {
     width: 65px;
     height: 65px;
@@ -364,7 +358,6 @@ nav ul li a.active {
     opacity: 0.8;
     transition: all 0.3s ease;
 }
-
 .staff-card:hover .staff-link-hint {
     opacity: 1;
     text-shadow: var(--neon-glow);
@@ -378,7 +371,6 @@ nav ul li a.active {
     text-decoration: none;
     color: inherit;
 }
-
 .link-icon {
     font-size: 24px;
     color: var(--primary-blue);
@@ -392,21 +384,10 @@ nav ul li a.active {
     border: 1px solid var(--border-color);
     flex-shrink: 0;
 }
+.tiktok-icon { color: #00f2fe; }
+.instagram-icon { color: #e1306c; }
 
-.tiktok-icon {
-    color: #00f2fe;
-}
-
-.instagram-icon {
-    color: #e1306c;
-}
-
-.generator-box {
-    text-align: center;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
+.generator-box { text-align: center; max-width: 600px; margin: 0 auto; }
 .result-name {
     font-size: 1.8rem;
     font-weight: 700;
@@ -431,15 +412,12 @@ footer {
     color: var(--text-muted);
     font-size: 13px;
 }
+footer span { color: var(--primary-blue); }
 
-footer span {
-    color: var(--primary-blue);
-}
-
-/* MOBİL TASARIM */
+/* MOBİL TASARIM (RESPONSIVE) DÜZENLEMESİ */
 @media (max-width: 850px) {
     .menu-toggle {
-        display: block;
+        display: block; /* 3 çizgi butonunu görünür yap */
     }
 
     nav ul {
@@ -453,12 +431,12 @@ footer span {
         flex-direction: column;
         padding: 15px;
         gap: 8px;
-        display: none;
+        display: none; /* Varsayılan kapalı */
         box-shadow: 0 10px 25px rgba(0,0,0,0.8);
     }
 
     nav ul.show {
-        display: flex;
+        display: flex; /* Butona basınca açılır */
     }
 
     nav ul li a {
@@ -471,16 +449,7 @@ footer span {
         padding-top: 100px;
     }
 
-    .hero h1 {
-        font-size: 26px;
-    }
-
-    .hero p {
-        font-size: 14px;
-    }
-
-    .grid-2,
-    .grid-3 {
-        grid-template-columns: 1fr;
-    }
+    .hero h1 { font-size: 26px; }
+    .hero p { font-size: 14px; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
 }
