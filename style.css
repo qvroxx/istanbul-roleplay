@@ -17,6 +17,10 @@
     user-select: none;
 }
 
+input, select, textarea {
+    user-select: text;
+}
+
 body {
     background-color: var(--bg-color);
     background-image: 
@@ -30,7 +34,6 @@ body {
     overflow-x: hidden;
 }
 
-/* --- CANLI ARKA PLAN CANVAS --- */
 #particle-canvas {
     position: fixed;
     top: 0;
@@ -41,7 +44,6 @@ body {
     pointer-events: none;
 }
 
-/* --- INTRO LOADING SCREEN --- */
 #intro-screen {
     position: fixed;
     top: 0;
@@ -85,7 +87,7 @@ body {
     height: 100%;
     background: var(--primary-blue);
     box-shadow: var(--neon-glow-strong);
-    animation: load 2s forwards ease-in-out;
+    animation: load 1.5s forwards ease-in-out;
 }
 
 @keyframes load {
@@ -93,7 +95,6 @@ body {
     100% { width: 100%; }
 }
 
-/* Header / Navbar */
 header {
     position: fixed;
     top: 0;
@@ -124,7 +125,6 @@ header {
     text-shadow: var(--neon-glow);
 }
 
-/* 3 Çizgi Hamburger Menü Butonu */
 .menu-toggle {
     display: none;
     font-size: 24px;
@@ -153,7 +153,9 @@ nav ul li a {
     cursor: pointer;
     padding: 8px 12px;
     border-radius: 8px;
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 nav ul li a:hover, nav ul li a.active {
@@ -164,7 +166,11 @@ nav ul li a:hover, nav ul li a.active {
     text-shadow: var(--neon-glow);
 }
 
-/* Container & Sections */
+.admin-nav {
+    color: #f59e0b !important;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
 .container {
     max-width: 1200px;
     width: 100%;
@@ -187,7 +193,6 @@ nav ul li a:hover, nav ul li a.active {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Hero Box */
 .hero {
     text-align: center;
     padding: 40px 20px;
@@ -259,20 +264,12 @@ nav ul li a:hover, nav ul li a.active {
     transform: translateY(-2px);
 }
 
-/* Grids */
 .grid-2 {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 20px;
 }
 
-.grid-3 {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 20px;
-}
-
-/* Glass Cards */
 .card {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
@@ -286,7 +283,6 @@ nav ul li a:hover, nav ul li a.active {
 .card:hover {
     border-color: var(--primary-blue);
     box-shadow: var(--neon-glow);
-    transform: translateY(-4px);
 }
 
 .card h2 {
@@ -327,66 +323,6 @@ nav ul li a:hover, nav ul li a.active {
     color: var(--primary-blue);
 }
 
-.staff-card { 
-    text-align: center; 
-    padding: 25px; 
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    cursor: pointer;
-}
-.staff-avatar {
-    width: 65px;
-    height: 65px;
-    border-radius: 50%;
-    background: rgba(0, 162, 255, 0.1);
-    border: 2px solid var(--primary-blue);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 12px;
-    font-size: 26px;
-    color: var(--primary-blue);
-    box-shadow: var(--neon-glow);
-}
-
-.staff-link-hint {
-    font-size: 11px;
-    color: var(--primary-blue);
-    margin-top: 8px;
-    display: inline-block;
-    opacity: 0.8;
-    transition: all 0.3s ease;
-}
-.staff-card:hover .staff-link-hint {
-    opacity: 1;
-    text-shadow: var(--neon-glow);
-}
-
-.link-card {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 18px;
-    text-decoration: none;
-    color: inherit;
-}
-.link-icon {
-    font-size: 24px;
-    color: var(--primary-blue);
-    width: 45px;
-    height: 45px;
-    background: rgba(0, 162, 255, 0.1);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid var(--border-color);
-    flex-shrink: 0;
-}
-.tiktok-icon { color: #00f2fe; }
-.instagram-icon { color: #e1306c; }
-
 .generator-box { text-align: center; max-width: 600px; margin: 0 auto; }
 .result-name {
     font-size: 1.8rem;
@@ -404,6 +340,179 @@ nav ul li a:hover, nav ul li a.active {
     text-shadow: var(--neon-glow);
 }
 
+.auth-box {
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+.auth-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    background: rgba(3, 7, 18, 0.6);
+    padding: 6px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.auth-tab-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.auth-tab-btn.active {
+    background: var(--primary-blue);
+    color: #fff;
+    box-shadow: var(--neon-glow);
+}
+
+.input-group {
+    margin-bottom: 16px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: rgba(3, 7, 18, 0.8);
+    border: 1px solid var(--border-color);
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+    border-color: var(--primary-blue);
+    box-shadow: var(--neon-glow);
+}
+
+.auth-msg {
+    font-size: 13px;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    display: none;
+    text-align: center;
+}
+
+.auth-msg.error {
+    display: block;
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid #ef4444;
+    color: #fca5a5;
+}
+
+.auth-msg.success {
+    display: block;
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid #10b981;
+    color: #6ee7b7;
+}
+
+.citizen-badge {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 15px;
+}
+
+.citizen-badge i {
+    font-size: 36px;
+    color: var(--primary-blue);
+    text-shadow: var(--neon-glow);
+}
+
+.citizen-details p {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: var(--text-muted);
+}
+
+.role-badge {
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    background: rgba(0, 162, 255, 0.2);
+    color: var(--primary-blue);
+    border: 1px solid var(--primary-blue);
+}
+
+.role-badge.admin {
+    background: rgba(245, 158, 11, 0.2);
+    color: #f59e0b;
+    border-color: #f59e0b;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 14px;
+}
+
+.admin-table th, .admin-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.admin-table th {
+    color: var(--primary-blue);
+    font-weight: 600;
+    background: rgba(0, 162, 255, 0.08);
+}
+
+.action-btn {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+    margin-right: 5px;
+}
+
+.btn-make-admin {
+    background: rgba(245, 158, 11, 0.2);
+    color: #f59e0b;
+    border: 1px solid #f59e0b;
+}
+
+.btn-make-user {
+    background: rgba(148, 163, 184, 0.2);
+    color: #cbd5e1;
+    border: 1px solid #94a3b8;
+}
+
+.btn-delete-user {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+    border: 1px solid #ef4444;
+}
+
 footer {
     text-align: center;
     padding: 20px;
@@ -414,10 +523,9 @@ footer {
 }
 footer span { color: var(--primary-blue); }
 
-/* MOBİL TASARIM (RESPONSIVE) DÜZENLEMESİ */
 @media (max-width: 850px) {
     .menu-toggle {
-        display: block; /* 3 çizgi butonunu görünür yap */
+        display: block;
     }
 
     nav ul {
@@ -431,16 +539,16 @@ footer span { color: var(--primary-blue); }
         flex-direction: column;
         padding: 15px;
         gap: 8px;
-        display: none; /* Varsayılan kapalı */
+        display: none;
         box-shadow: 0 10px 25px rgba(0,0,0,0.8);
     }
 
     nav ul.show {
-        display: flex; /* Butona basınca açılır */
+        display: flex;
     }
 
     nav ul li a {
-        text-align: center;
+        justify-content: center;
         padding: 12px;
         font-size: 15px;
     }
@@ -451,5 +559,5 @@ footer span { color: var(--primary-blue); }
 
     .hero h1 { font-size: 26px; }
     .hero p { font-size: 14px; }
-    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
 }
