@@ -2,254 +2,415 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#090b13">
-<title>İstanbul RolePlay | Digital City</title>
-<link rel="stylesheet" href="style.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0c0d14">
+    <meta name="description" content="İstanbul RolePlay resmi şehir ve topluluk portalı.">
+    <title>İstanbul RolePlay | Digital City</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="announcement-bar">
-    <span class="online-dot"></span>
-    İSTANBUL ROLEPLAY DİJİTAL MERKEZİ
-    <span class="bar-right">RESMÎ TOPLULUK PORTALI <b>2026</b></span>
-</div>
+<div class="noise"></div>
 
-<header class="header">
-    <a href="#home" class="brand">
-        <div class="brand-logo">İR</div>
-        <div>
-            <strong>ISTANBUL<span>RP</span></strong>
-            <small>YOUR CITY. YOUR STORY.</small>
-        </div>
+<!-- NAVBAR -->
+<header class="navbar">
+    <a href="#" class="brand" data-page="home">
+        <span class="brand-icon">İR</span>
+        <span class="brand-text">
+            <strong>İSTANBUL RP</strong>
+            <small>DIGITAL CITY</small>
+        </span>
     </a>
 
-    <button class="menu-toggle" id="menuToggle">☰</button>
-
-    <nav id="nav">
-        <a href="#home">Keşfet</a>
-        <a href="#kurumlar">Kurumlar</a>
-        <a href="#basvurular">Başvurular</a>
-        <a href="#duyurular">Haberler</a>
-        <a href="#vatandas">Hesabım</a>
+    <nav class="nav-links" id="navLinks">
+        <a href="#home" class="nav-link active" data-page="home">Ana Sayfa</a>
+        <a href="#institutions" class="nav-link" data-page="institutions">Kurumlar</a>
+        <a href="#applications" class="nav-link" data-page="applications">Başvurular</a>
+        <a href="#news" class="nav-link" data-page="news">Duyurular</a>
+        <a href="#citizen" class="nav-link" data-page="citizen">Vatandaş Paneli</a>
+        <a href="#more" class="nav-link" data-page="more">Daha Fazla</a>
     </nav>
 
-    <a class="header-discord" href="https://discord.com/" target="_blank">
-        <span>◈</span> Discord'a Katıl
+    <a href="https://discord.gg/9W7m69B7K9" target="_blank" class="nav-discord">
+        <i class="fa-brands fa-discord"></i>
+        Discord'a Katıl
+        <i class="fa-solid fa-arrow-up-right-from-square"></i>
     </a>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Menüyü aç">
+        <i class="fa-solid fa-bars"></i>
+    </button>
 </header>
 
 <main>
 
-<section class="hero" id="home">
-    <div class="hero-background"></div>
-    <div class="hero-grid"></div>
+<!-- ANA SAYFA -->
+<section class="page active" id="home">
 
-    <div class="hero-content">
-        <div class="hero-badge">
-            <span class="online-dot"></span>
-            YENİ NESİL ROLEPLAY DENEYİMİ
+    <div class="hero">
+        <div class="hero-background"></div>
+        <div class="hero-content">
+            <div class="eyebrow">
+                <span class="live-dot"></span>
+                İSTANBUL ROLEPLAY EVRENİNE HOŞ GELDİN
+            </div>
+
+            <h1>
+                BU ŞEHİRDE<br>
+                HİKÂYENİ <span>SEN YAZ.</span>
+            </h1>
+
+            <p>
+                Sıradan bir oyuncu olmanın ötesine geç.
+                Kendi karakterini oluştur, kurumlara katıl
+                ve İstanbul'un geleceğinde yerini al.
+            </p>
+
+            <div class="hero-actions">
+                <button class="btn btn-primary" data-go="institutions">
+                    Şehri Keşfet <i class="fa-solid fa-arrow-right"></i>
+                </button>
+                <button class="btn btn-outline" data-go="applications">
+                    Başvuru Yap
+                </button>
+            </div>
+
+            <div class="hero-bottom">
+                <div><strong>01</strong><span>ŞEHİR</span></div>
+                <div><strong>02</strong><span>HİKÂYE</span></div>
+                <div><strong>03</strong><span>TOPLULUK</span></div>
+            </div>
         </div>
 
-        <h1>
-            BU ŞEHİRDE<br>
-            <span>HİKÂYENİ</span><br>
-            SEN YAZ.
-        </h1>
-
-        <p>
-            Sıradan bir oyundan çok daha fazlası.
-            Kendi karakterini oluştur, kurumlara katıl,
-            İstanbul'un geleceğinde yerini al.
-        </p>
-
-        <div class="hero-buttons">
-            <a href="#kurumlar" class="btn-primary">ŞEHRİ KEŞFET <span>↗</span></a>
-            <a href="#basvurular" class="btn-secondary">BAŞVURU YAP</a>
-        </div>
-
-        <div class="hero-footer">
-            <div><strong>01</strong><small>ŞEHİR</small></div>
-            <div><strong>∞</strong><small>OLASILIK</small></div>
-            <div><strong>İR</strong><small>TOPLULUK</small></div>
+        <div class="hero-location">
+            <i class="fa-solid fa-location-dot"></i> İSTANBUL, TÜRKİYE
         </div>
     </div>
 
-    <div class="hero-widget">
-        <div class="widget-top">
-            <span>İSTANBUL / MERKEZ</span>
-            <span class="widget-live">● LIVE</span>
-        </div>
-        <div class="widget-image"></div>
-        <div class="widget-bottom">
+    <div class="content">
+
+        <div class="intro-grid">
             <div>
-                <small>ŞEHRİN KAPILARI AÇIK</small>
-                <strong>Kendi hikâyeni başlat.</strong>
+                <span class="section-label">İSTANBUL ROLEPLAY</span>
+                <h2 class="intro-title">Bir şehirden<br>çok <span>daha fazlası.</span></h2>
             </div>
-            <span class="widget-arrow">↗</span>
+            <p class="intro-description">
+                İstanbul RolePlay, oyuncuların kendi karakterlerini
+                oluşturduğu, devlet kurumlarında görev alabildiği ve
+                şehrin gelişimine katkıda bulunabildiği bir roleplay
+                topluluğudur.
+            </p>
         </div>
-    </div>
 
-    <div class="hero-scroll">SCROLL TO EXPLORE ↓</div>
-</section>
-
-<div class="quick-stats">
-    <div><span>01</span><strong>İstanbul</strong><small>ROLEPLAY ŞEHRİ</small></div>
-    <div><span>02</span><strong>Devlet</strong><small>KAMU KURUMLARI</small></div>
-    <div><span>03</span><strong>Topluluk</strong><small>BİRLİKTE GELİŞİM</small></div>
-    <div><span>04</span><strong>Gelecek</strong><small>SENİN HİKÂYEN</small></div>
-</div>
-
-<section class="section about" id="about">
-    <div class="about-left">
-        <span class="section-tag">01 — HAKKIMIZDA</span>
-        <h2>Bir karakterden<br><span>bir efsaneye.</span></h2>
-    </div>
-    <div class="about-right">
-        <p>
-            İstanbul RolePlay dünyasında her kararın bir karşılığı,
-            her karakterin bir hikâyesi var. Şehrin yönetiminden
-            günlük yaşama kadar kendi yolunu kendin belirle.
-        </p>
-        <a href="#kurumlar" class="text-link">İSTANBUL'U TANI <span>→</span></a>
-    </div>
-</section>
-
-<section class="section institutions" id="kurumlar">
-    <div class="section-heading">
-        <div>
-            <span class="section-tag">02 — ORGANİZASYON</span>
-            <h2>Şehrin <span>Yönetimi.</span></h2>
+        <div class="section-heading">
+            <div>
+                <span class="section-label">ŞEHRİN YÖNETİMİ</span>
+                <h2>Devlet <span>Kurumları</span></h2>
+            </div>
+            <button class="text-button" data-go="institutions">
+                Tüm kurumlar <i class="fa-solid fa-arrow-right"></i>
+            </button>
         </div>
-        <p>Şehrin düzeninde senin de bir rolün olabilir.</p>
-    </div>
 
-    <div class="institution-grid">
-        <a href="#basvurular" class="institution-card card-government">
-            <div class="institution-icon">⌂</div>
-            <span class="card-index">01 / GOV</span>
-            <div class="institution-info">
-                <small>YÜRÜTME VE YÖNETİM</small>
+        <div class="institution-grid">
+            <article class="institution-card purple">
+                <div class="card-top"><span>01 / YÖNETİM</span><i class="fa-solid fa-landmark"></i></div>
+                <div class="institution-icon"><i class="fa-solid fa-building-columns"></i></div>
                 <h3>Başbakanlık</h3>
-                <span>KEŞFET ↗</span>
-            </div>
-        </a>
+                <p>Şehir yönetimi, devlet politikaları ve yürütme faaliyetleri.</p>
+                <button class="card-link" data-go="institutions">KURUMU KEŞFET ↗</button>
+            </article>
 
-        <a href="#basvurular" class="institution-card card-justice">
-            <div class="institution-icon">⚖</div>
-            <span class="card-index">02 / LAW</span>
-            <div class="institution-info">
-                <small>HUKUK VE ADALET</small>
+            <article class="institution-card blue">
+                <div class="card-top"><span>02 / ADALET</span><i class="fa-solid fa-scale-balanced"></i></div>
+                <div class="institution-icon"><i class="fa-solid fa-scale-balanced"></i></div>
                 <h3>Adalet Bakanlığı</h3>
-                <span>KEŞFET ↗</span>
-            </div>
-        </a>
+                <p>Hukuk düzeni, adalet sistemi ve yargı süreçleri.</p>
+                <button class="card-link" data-go="institutions">KURUMU KEŞFET ↗</button>
+            </article>
 
-        <a href="#basvurular" class="institution-card card-health">
-            <div class="institution-icon">✚</div>
-            <span class="card-index">03 / MED</span>
-            <div class="institution-info">
-                <small>SAĞLIK HİZMETLERİ</small>
+            <article class="institution-card green">
+                <div class="card-top"><span>03 / SAĞLIK</span><i class="fa-solid fa-heart-pulse"></i></div>
+                <div class="institution-icon"><i class="fa-solid fa-kit-medical"></i></div>
                 <h3>Sağlık Bakanlığı</h3>
-                <span>KEŞFET ↗</span>
-            </div>
-        </a>
+                <p>Sağlık hizmetleri ve şehirdeki sağlık yapılanması.</p>
+                <button class="card-link" data-go="institutions">KURUMU KEŞFET ↗</button>
+            </article>
 
-        <a href="#basvurular" class="institution-card card-interior">
-            <div class="institution-icon">▣</div>
-            <span class="card-index">04 / INT</span>
-            <div class="institution-info">
-                <small>KAMU VE GÜVENLİK</small>
+            <article class="institution-card orange">
+                <div class="card-top"><span>04 / GÜVENLİK</span><i class="fa-solid fa-shield-halved"></i></div>
+                <div class="institution-icon"><i class="fa-solid fa-shield-halved"></i></div>
                 <h3>İçişleri Bakanlığı</h3>
-                <span>KEŞFET ↗</span>
-            </div>
-        </a>
-    </div>
-</section>
-
-<section class="career" id="basvurular">
-    <div class="career-decoration">JOIN</div>
-    <div class="career-content">
-        <span class="section-tag">03 — KATILIM MERKEZİ</span>
-        <h2>Bir koltuk değil,<br><span>bir gelecek seç.</span></h2>
-        <p>
-            Devlet kurumlarında görev al, şehrin gelişimine
-            katkıda bulun ve kendi kariyerini oluştur.
-        </p>
-        <a href="#vatandas" class="btn-primary">BAŞVURU MERKEZİNE GİT ↗</a>
-    </div>
-    <div class="career-number">03</div>
-</section>
-
-<section class="section news" id="duyurular">
-    <div class="section-heading">
-        <div>
-            <span class="section-tag">04 — HABER MERKEZİ</span>
-            <h2>Şehirden <span>Gelişmeler.</span></h2>
+                <p>Kamu düzeni ve güvenlik birimlerinin koordinasyonu.</p>
+                <button class="card-link" data-go="institutions">KURUMU KEŞFET ↗</button>
+            </article>
         </div>
-        <span class="news-label">LATEST UPDATES</span>
-    </div>
 
-    <div class="news-grid">
-        <article class="news-card featured-news">
-            <div class="news-visual">
-                <span>İ R</span>
-                <small>İSTANBUL ROLEPLAY</small>
+        <div class="join-banner">
+            <div>
+                <span class="section-label">KENDİ HİKÂYENİ OLUŞTUR</span>
+                <h2>Şehrin geleceğinde<br><span>senin de imzan olsun.</span></h2>
+                <p>İstanbul RolePlay bünyesindeki kurumlarda görev almak için başvurulara göz at.</p>
+                <button class="btn btn-primary" data-go="applications">
+                    Başvuruları İncele <i class="fa-solid fa-arrow-right"></i>
+                </button>
             </div>
-            <div class="news-meta"><span>GENEL DUYURU</span><time>14.11.2026</time></div>
-            <h3>İstanbul RolePlay dijital portalı yayında!</h3>
-            <p>Şehirdeki gelişmelerin yeni merkezi artık hizmetinizde.</p>
-        </article>
-
-        <article class="news-card">
-            <div class="news-visual news-visual-two">
-                <span>NEWS</span>
-            </div>
-            <div class="news-meta"><span>BİLGİLENDİRME</span><time>YAKINDA</time></div>
-            <h3>Yeni gelişmeler yolda.</h3>
-            <p>Yönetim açıklamaları ve yeni gelişmeler bu alanda paylaşılacak.</p>
-        </article>
-    </div>
-</section>
-
-<section class="citizen-section" id="vatandas">
-    <div class="citizen-intro">
-        <span class="section-tag">05 — KİŞİSEL ALAN</span>
-        <h2>Şehrin dijital<br><span>kimliği.</span></h2>
-        <p>Vatandaş işlemlerini tek merkezden yönetmeye hazır ol.</p>
-    </div>
-
-    <div class="login-card">
-        <div class="login-card-top">
-            <div class="login-logo">İR</div>
-            <span>MEMBER AREA</span>
+            <div class="join-symbol"><i class="fa-solid fa-city"></i></div>
         </div>
-        <h3>Vatandaş Paneli</h3>
-        <p>Hesabınla şehrin dijital hizmetlerine eriş.</p>
-        <button id="panelButton" class="btn-primary full-btn">ÇOK YAKINDA ↗</button>
-        <div id="panelMessage"></div>
-        <small class="login-note">Üyelik sistemi henüz aktif değildir.</small>
+
+        <div class="section-heading">
+            <div>
+                <span class="section-label">GÜNCEL GELİŞMELER</span>
+                <h2>Şehirden <span>Haberler</span></h2>
+            </div>
+            <button class="text-button" data-go="news">Tüm duyurular →</button>
+        </div>
+
+        <div class="news-grid">
+            <article class="news-card featured-news">
+                <div class="news-image"><i class="fa-solid fa-bullhorn"></i><span>PORTAL</span></div>
+                <div class="news-info">
+                    <span>14 KASIM 2026 · DUYURU</span>
+                    <h3>İstanbul RolePlay resmi portalı</h3>
+                    <p>Şehirle ilgili bilgilendirmeler ve gelişmeler artık bu platform üzerinden takip edilebilecek.</p>
+                </div>
+            </article>
+            <article class="news-card">
+                <div class="news-image news-image-alt"><i class="fa-solid fa-file-signature"></i><span>BAŞVURU</span></div>
+                <div class="news-info">
+                    <span>GÜNCEL DUYURU</span>
+                    <h3>Kurum başvuruları</h3>
+                    <p>Devlet kurumlarına katılım süreçleri hakkında bilgilendirmeler.</p>
+                </div>
+            </article>
+        </div>
+
     </div>
 </section>
 
-<section class="discord-banner">
-    <div>
-        <span class="section-tag">JOIN OUR COMMUNITY</span>
-        <h2>Oyunun bir parçası ol.</h2>
-        <p>İstanbul RolePlay topluluğuna katıl.</p>
+<!-- KURUMLAR -->
+<section class="page" id="institutions">
+    <div class="page-banner">
+        <span class="section-label">İSTANBUL ROLEPLAY / DEVLET</span>
+        <h1>Devlet <span>Kurumları</span></h1>
+        <p>Şehrin yönetiminde söz sahibi olan kurumları keşfet.</p>
     </div>
-    <a href="https://discord.com/" target="_blank" class="discord-large">DISCORD'A KATIL ↗</a>
+    <div class="content">
+        <div class="institution-grid full-grid">
+            <article class="institution-card purple">
+                <div class="institution-icon"><i class="fa-solid fa-building-columns"></i></div>
+                <h3>Başbakanlık</h3>
+                <p>Şehir yönetimi ve yürütme faaliyetlerinin koordinasyonu.</p>
+                <span class="status-label">DEVLET YÖNETİMİ</span>
+            </article>
+            <article class="institution-card blue">
+                <div class="institution-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+                <h3>Adalet Bakanlığı</h3>
+                <p>Adalet sistemi, hukuk düzeni ve yargı süreçleri.</p>
+                <span class="status-label">ADALET</span>
+            </article>
+            <article class="institution-card green">
+                <div class="institution-icon"><i class="fa-solid fa-kit-medical"></i></div>
+                <h3>Sağlık Bakanlığı</h3>
+                <p>Sağlık hizmetleri ve sağlık yapılanması.</p>
+                <span class="status-label">SAĞLIK</span>
+            </article>
+            <article class="institution-card orange">
+                <div class="institution-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <h3>İçişleri Bakanlığı</h3>
+                <p>Kamu düzeni ve güvenlik birimlerinin koordinasyonu.</p>
+                <span class="status-label">GÜVENLİK</span>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- BAŞVURULAR -->
+<section class="page" id="applications">
+    <div class="page-banner">
+        <span class="section-label">KARİYER MERKEZİ</span>
+        <h1>Şehirde yerini <span>al.</span></h1>
+        <p>İstanbul RolePlay bünyesinde görev almak için başvuru alanlarını incele.</p>
+    </div>
+    <div class="content">
+        <div class="application-grid">
+            <article class="application-card">
+                <div class="application-icon"><i class="fa-solid fa-landmark"></i></div>
+                <span>01 / DEVLET</span>
+                <h3>Devlet Kurumları</h3>
+                <p>Şehir yönetiminde ve devlet kurumlarında görev al.</p>
+                <a href="https://discord.gg/9W7m69B7K9" target="_blank">BAŞVURUYA GİT ↗</a>
+            </article>
+            <article class="application-card">
+                <div class="application-icon"><i class="fa-solid fa-user-shield"></i></div>
+                <span>02 / YÖNETİM</span>
+                <h3>Yetkili Ekibi</h3>
+                <p>Topluluk yönetiminde sorumluluk üstlen.</p>
+                <a href="https://discord.gg/9W7m69B7K9" target="_blank">BAŞVURUYA GİT ↗</a>
+            </article>
+            <article class="application-card">
+                <div class="application-icon"><i class="fa-solid fa-users"></i></div>
+                <span>03 / TOPLULUK</span>
+                <h3>Topluluk Katılımı</h3>
+                <p>Roleplay dünyasına katıl ve kendi hikâyeni oluştur.</p>
+                <a href="https://www.roblox.com/communities/35165992/Edirne-Roleplay-V2#!/about" target="_blank">ROBLOX GRUBU ↗</a>
+            </article>
+        </div>
+        <div class="notice-box">
+            <i class="fa-solid fa-circle-info"></i>
+            <p>Başvuru bağlantıları yönetim tarafından güncellenecektir. Şimdilik Discord üzerinden bilgi alabilirsin.</p>
+        </div>
+    </div>
+</section>
+
+<!-- DUYURULAR -->
+<section class="page" id="news">
+    <div class="page-banner">
+        <span class="section-label">ŞEHİR HABER MERKEZİ</span>
+        <h1>Son <span>Duyurular.</span></h1>
+        <p>İstanbul RolePlay dünyasındaki gelişmeleri takip et.</p>
+    </div>
+    <div class="content">
+        <div class="news-list">
+            <article class="news-row">
+                <div class="news-date"><strong>14</strong><span>KASIM 2026</span></div>
+                <div><span class="news-category">PORTAL</span><h3>İstanbul RolePlay resmi portalı yayında</h3><p>Şehirle ilgili bilgilendirmeler için portalımızı takip edebilirsiniz.</p></div>
+            </article>
+            <article class="news-row">
+                <div class="news-date"><strong>--</strong><span>YAKINDA</span></div>
+                <div><span class="news-category">DUYURU</span><h3>Yeni duyurular burada yayımlanacak</h3><p>Yönetim açıklamaları ve topluluk haberleri bu alanda paylaşılacaktır.</p></div>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- VATANDAŞ PANELİ -->
+<section class="page" id="citizen">
+    <div class="page-banner">
+        <span class="section-label">DİJİTAL VATANDAŞ HİZMETLERİ</span>
+        <h1>Vatandaş <span>Paneli.</span></h1>
+        <p>Şehir hizmetlerine ve vatandaşlık işlemlerine erişim alanı.</p>
+    </div>
+    <div class="content">
+        <div class="citizen-box">
+            <div class="citizen-icon"><i class="fa-solid fa-id-card"></i></div>
+            <h2>Şehir seni bekliyor.</h2>
+            <p>Vatandaş paneli üzerinden işlemlerini yönetebilmen için sistem hazırlanmaktadır.</p>
+            <button class="btn btn-primary" id="citizenButton">Sistemi kontrol et</button>
+            <p id="citizenMessage" class="form-message"></p>
+        </div>
+        <div class="service-grid">
+            <div class="service-card"><i class="fa-solid fa-address-card"></i><h3>Kimlik İşlemleri</h3><p>Vatandaşlık bilgileri</p></div>
+            <div class="service-card"><i class="fa-solid fa-file-lines"></i><h3>Başvurularım</h3><p>Başvuru takibi</p></div>
+            <div class="service-card"><i class="fa-solid fa-bell"></i><h3>Bildirimler</h3><p>Şehir bildirimleri</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- DAHA FAZLA -->
+<section class="page" id="more">
+    <div class="page-banner">
+        <span class="section-label">TOPLULUK MERKEZİ</span>
+        <h1>Daha <span>Fazlası.</span></h1>
+        <p>Roleplay deneyimini geliştirecek araçlar ve topluluk bilgileri.</p>
+    </div>
+    <div class="content">
+        <div class="tool-grid">
+            <button class="tool-card" data-go="dictionary"><i class="fa-solid fa-book"></i><strong>Rol Sözlüğü</strong><span>Roleplay terimlerini öğren</span></button>
+            <button class="tool-card" data-go="generator"><i class="fa-solid fa-wand-magic-sparkles"></i><strong>İsim Önerici</strong><span>Karakterine isim bul</span></button>
+            <button class="tool-card" data-go="rules"><i class="fa-solid fa-scale-balanced"></i><strong>Sunucu Kuralları</strong><span>Kuralları incele</span></button>
+            <button class="tool-card" data-go="staff"><i class="fa-solid fa-users-gear"></i><strong>Yetkili Ekibi</strong><span>Yönetim ekibini tanı</span></button>
+            <button class="tool-card" data-go="social"><i class="fa-solid fa-share-nodes"></i><strong>Sosyal Medya</strong><span>Hesaplarımızı keşfet</span></button>
+            <button class="tool-card" data-go="contact"><i class="fa-solid fa-envelope"></i><strong>İletişim</strong><span>Bizimle iletişime geç</span></button>
+        </div>
+    </div>
+</section>
+
+<!-- ROL SÖZLÜĞÜ -->
+<section class="page" id="dictionary">
+    <div class="page-banner"><span class="section-label">EĞİTİM MERKEZİ</span><h1>Rol <span>Sözlüğü.</span></h1><p>Roleplay dünyasının temel terimleri.</p></div>
+    <div class="content">
+        <div class="info-grid">
+            <article class="info-card"><h3>IC & OOC</h3><p><b>IC:</b> Karakterinizin oyun içindeki dünyası ve eylemleri.</p><p><b>OOC:</b> Karakterinizden bağımsız gerçek hayat bilgileri.</p></article>
+            <article class="info-card"><h3>/me & /do</h3><p><b>/me:</b> Karakterinizin yaptığı fiziksel eylemleri belirtir.</p><p><b>/do:</b> Durum ve çevresel detayları açıklar.</p></article>
+            <article class="info-card"><h3>RDM & VDM</h3><p><b>RDM:</b> Geçerli rol sebebi olmadan oyunculara saldırmak.</p><p><b>VDM:</b> Aracı rol dışı şekilde zarar vermek için kullanmak.</p></article>
+            <article class="info-card"><h3>Powergaming</h3><p>Gerçekçi olmayan eylemler yapmak veya karşı tarafa rol imkânı tanımamak.</p></article>
+            <article class="info-card"><h3>Metagaming</h3><p>Rol dışı bilgileri karakteriniz biliyormuş gibi kullanmak.</p></article>
+            <article class="info-card"><h3>Fear RP</h3><p>Karakterinizin hayatını tehlikeye atan durumlarda gerçekçi tepkiler vermek.</p></article>
+        </div>
+    </div>
+</section>
+
+<!-- İSİM ÖNERİCİ -->
+<section class="page" id="generator">
+    <div class="page-banner"><span class="section-label">KARAKTER ARAÇLARI</span><h1>İsim <span>Önerici.</span></h1><p>Yeni karakterin için bir isim oluştur.</p></div>
+    <div class="content">
+        <div class="generator-box">
+            <div class="generator-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+            <span class="section-label">KARAKTERİNİN YENİ KİMLİĞİ</span>
+            <div id="nameDisplay">Barış Karadağ</div>
+            <div class="generator-actions">
+                <button class="btn btn-primary" id="maleButton"><i class="fa-solid fa-mars"></i> Erkek</button>
+                <button class="btn btn-outline" id="femaleButton"><i class="fa-solid fa-venus"></i> Kadın</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- KURALLAR -->
+<section class="page" id="rules">
+    <div class="page-banner"><span class="section-label">TOPLULUK STANDARTLARI</span><h1>Sunucu <span>Kuralları.</span></h1><p>Herkes için adil ve kaliteli bir oyun ortamı.</p></div>
+    <div class="content">
+        <div class="info-grid">
+            <article class="info-card"><h3>Genel Roleplay</h3><p>RDM, VDM, Fear RP ihlalleri, Powergaming ve Metagaming yasaktır.</p></article>
+            <article class="info-card"><h3>Topluluk Düzeni</h3><p>Oyunculara ve yetkililere saygılı davranılmalıdır. Hakaret ve taciz kabul edilmez.</p></article>
+            <article class="info-card"><h3>Adil Oyun</h3><p>Hile kullanmak, oyun açıklarından faydalanmak ve rol akışını bozmak yasaktır.</p></article>
+            <article class="info-card"><h3>OOC Düzeni</h3><p>Rol dışı bilgiler oyun içinde avantaj sağlamak amacıyla kullanılamaz.</p></article>
+        </div>
+    </div>
+</section>
+
+<!-- YETKİLİLER -->
+<section class="page" id="staff">
+    <div class="page-banner"><span class="section-label">YÖNETİM</span><h1>Yetkili <span>Ekibi.</span></h1><p>İstanbul RolePlay yönetim kadrosu.</p></div>
+    <div class="content">
+        <div class="staff-grid" id="staffGrid"></div>
+    </div>
+</section>
+
+<!-- SOSYAL MEDYA -->
+<section class="page" id="social">
+    <div class="page-banner"><span class="section-label">BİZİ TAKİP ET</span><h1>Sosyal <span>Medya.</span></h1><p>İstanbul RolePlay sosyal medya hesapları.</p></div>
+    <div class="content"><div class="social-grid" id="socialGrid"></div></div>
+</section>
+
+<!-- İLETİŞİM -->
+<section class="page" id="contact">
+    <div class="page-banner"><span class="section-label">BİZE ULAŞ</span><h1>İletişim <span>Merkezi.</span></h1><p>Soru, öneri ve destek için iletişim adresleri.</p></div>
+    <div class="content"><div class="social-grid" id="contactGrid"></div></div>
 </section>
 
 </main>
 
-<footer>
-    <a href="#home" class="footer-logo">İR <span>ISTANBUL ROLEPLAY</span></a>
-    <p>YOUR CITY. YOUR STORY.</p>
-    <small>© 2026 İSTANBUL ROLEPLAY</small>
+<footer class="footer">
+    <div class="footer-main">
+        <a href="#" class="brand" data-page="home">
+            <span class="brand-icon">İR</span>
+            <span class="brand-text"><strong>İSTANBUL RP</strong><small>DIGITAL CITY</small></span>
+        </a>
+        <p>Bir şehir. Binlerce hikâye.</p>
+        <a href="https://discord.gg/9W7m69B7K9" target="_blank" class="footer-discord"><i class="fa-brands fa-discord"></i> Discord'a katıl</a>
+    </div>
+    <div class="footer-bottom">
+        <span>© 2026 İstanbul RolePlay. Tüm hakları saklıdır.</span>
+        <span>Designed & Developed by <b>qvrox</b></span>
+    </div>
 </footer>
 
 <script src="script.js"></script>
