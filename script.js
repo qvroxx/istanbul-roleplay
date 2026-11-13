@@ -29,11 +29,12 @@ function switchTab(tabId, element) {
 
     const navButtons = document.querySelectorAll('.nav-btn');
     navButtons.forEach(btn => btn.classList.remove('active'));
-
+    
     if (element && element.classList.contains('nav-btn')) {
         element.classList.add('active');
     }
 
+    // Mobilde tıklandıktan sonra menüyü otomatik kapat
     const navMenu = document.getElementById('navMenu');
     if (navMenu.classList.contains('show')) {
         toggleMenu();
@@ -55,7 +56,6 @@ function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 }
-
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
@@ -67,15 +67,12 @@ class Particle {
         this.speedX = (Math.random() - 0.5) * 0.4;
         this.speedY = (Math.random() - 0.5) * 0.4;
     }
-
     update() {
         this.x += this.speedX;
         this.y += this.speedY;
-
         if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
         if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
     }
-
     draw() {
         ctx.fillStyle = 'rgba(0, 162, 255, 0.3)';
         ctx.beginPath();
@@ -84,41 +81,23 @@ class Particle {
     }
 }
 
-for (let i = 0; i < 40; i++) {
-    particles.push(new Particle());
-}
+for (let i = 0; i < 40; i++) particles.push(new Particle());
 
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => {
-        p.update();
-        p.draw();
-    });
+    particles.forEach(p => { p.update(); p.draw(); });
     requestAnimationFrame(animate);
 }
-
 animate();
 
 /* 5. İSİM ÖNERİCİ MANTIĞI */
-const males = [
-    "Barış", "Mert", "Yavuz", "Emre", "Kaan", "Burak",
-    "Serkan", "Oğuz", "Arda", "Eren", "Volkan", "Deniz"
-];
-
-const females = [
-    "Selin", "Zeynep", "Elif", "Buse", "Merve", "Aslı",
-    "Derin", "Ece", "Melisa", "Ceren", "Simge"
-];
-
-const surnames = [
-    "Karadağ", "Sancak", "Yılmaz", "Kaya", "Aydın",
-    "Demir", "Çelik", "Şahin", "Koç", "Yıldırım", "Korkmaz"
-];
+const males = ["Barış", "Mert", "Yavuz", "Emre", "Kaan", "Burak", "Serkan", "Oğuz", "Arda", "Eren", "Volkan", "Deniz"];
+const females = ["Selin", "Zeynep", "Elif", "Buse", "Merve", "Aslı", "Derin", "Ece", "Melisa", "Ceren", "Simge"];
+const surnames = ["Karadağ", "Sancak", "Yılmaz", "Kaya", "Aydın", "Demir", "Çelik", "Şahin", "Koç", "Yıldırım", "Korkmaz"];
 
 function generateName(gender) {
     let list = gender === 'male' ? males : females;
     let first = list[Math.floor(Math.random() * list.length)];
     let last = surnames[Math.floor(Math.random() * surnames.length)];
-
     document.getElementById('nameDisplay').innerText = `${first} ${last}`;
 }
