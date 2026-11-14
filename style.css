@@ -270,6 +270,12 @@ nav ul li a:hover, nav ul li a.active {
     gap: 20px;
 }
 
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
 .card {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
@@ -434,10 +440,14 @@ nav ul li a:hover, nav ul li a.active {
     margin-bottom: 15px;
 }
 
-.citizen-badge i {
-    font-size: 36px;
-    color: var(--primary-blue);
-    text-shadow: var(--neon-glow);
+.citizen-avatar-img {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-blue);
+    background: rgba(0, 162, 255, 0.1);
+    object-fit: cover;
+    box-shadow: var(--neon-glow);
 }
 
 .citizen-details p {
@@ -460,6 +470,22 @@ nav ul li a:hover, nav ul li a.active {
     background: rgba(245, 158, 11, 0.2);
     color: #f59e0b;
     border-color: #f59e0b;
+}
+
+.city-citizen-card {
+    text-align: center;
+    padding: 20px;
+}
+
+.city-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-blue);
+    margin: 0 auto 12px;
+    object-fit: cover;
+    background: rgba(0, 162, 255, 0.1);
+    box-shadow: var(--neon-glow);
 }
 
 .table-responsive {
