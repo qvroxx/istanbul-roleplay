@@ -162,11 +162,13 @@ function showAuthMessage(text, type) {
     msgBox.className = `auth-msg ${type}`;
 }
 
-// %100 Çalışan Doğrudan Roblox ID Tabanlı Avatar Çekme Fonksiyonu
+// Güvenli ve Kesin Çalışan Roblox Avatar Fonksiyonu
 function getRobloxAvatar(robloxId) {
-    if (!robloxId) return "https://tr.rbxcdn.com/3843dcb507da65b7990b7956bba44e7c/150/150/AvatarHeadshot/Png";
-    // Roblox'un resmi direct render headshot API linki (CORS takılmaz, doğrudan görsel verir)
-    return `https://www.roblox.com/headshot-thumbnail/image?userId=${robloxId}&width=150&height=150&format=png`;
+    if (!robloxId || robloxId === "-" || robloxId.trim() === "") {
+        return "https://tr.rbxcdn.com/3843dcb507da65b7990b7956bba44e7c/150/150/AvatarHeadshot/Png";
+    }
+    // Doğrudan çalışan resmi headshot görsel URL yapısı
+    return `https://www.roblox.com/headshot-thumbnail/image?userId=${robloxId.trim()}&width=150&height=150&format=png`;
 }
 
 window.handleRegister = async function(e) {
@@ -226,11 +228,11 @@ onAuthStateChanged(auth, async (user) => {
         const userDoc = await getDoc(doc(db, "users", user.uid));
         if (userDoc.exists()) {
             const data = userDoc.data();
-            document.getElementById('profileName').innerText = data.username;
-            document.getElementById('profileRoblox').innerText = "ID: " + data.robloxId;
+            document.getElementById('profileName').innerText = data.username || "İsimsiz";
+            document.getElementById('profileRoblox').innerText = "ID: " + (data.robloxId || "Belirtilmemiş");
             document.getElementById('profileEmail').innerText = data.email;
             
-            // Roblox Avatarını Doğrudan Yükle
+            // Avatarı Yükle
             document.getElementById('profileAvatar').src = getRobloxAvatar(data.robloxId);
             
             const roleBadge = document.getElementById('profileRole');
@@ -260,13 +262,17 @@ window.loadCityCitizens = async function() {
         const querySnapshot = await getDocs(collection(db, "users"));
         grid.innerHTML = '';
 
-        if (querySnapshot.empty) {
-            grid.innerHTML = '<div class="card" style="text-align: center; grid-column: 1 / -1;"><p style="color: var(--text-muted);">Henüz şehirde kayıtlı vatandaş bulunmuyor.</p></div>';
-            return;
-        }
+        let validUserCount = 0;
 
         querySnapshot.forEach((docSnap) => {
             const userData = docSnap.data();
+            
+            // ID'si olmayan veya eksik olan eski/boş test hesaplarını listede gösterme
+            if (!userData.robloxId || userData.robloxId === "-") {
+                return; 
+            }
+
+            validUserCount++;
             const avatarUrl = getRobloxAvatar(userData.robloxId);
             const isAdmin = userData.role === 'admin';
 
@@ -274,7 +280,7 @@ window.loadCityCitizens = async function() {
                 <div class="card city-citizen-card">
                     <img src="${avatarUrl}" alt="Avatar" class="city-avatar">
                     <h3 style="color: #fff; font-size: 18px; margin-bottom: 4px;">${userData.username}</h3>
-                    <p style="color: var(--primary-blue); font-size: 13px; font-weight: 600; margin-bottom: 8px;">ID: ${userData.robloxId || "-"}</p>
+                    <p style="color: var(--primary-blue); font-size: 13px; font-weight: 600; margin-bottom: 8px;">ID: ${userData.robloxId}</p>
                     <span class="role-badge ${isAdmin ? 'admin' : ''}">
                         ${isAdmin ? 'Yönetici (Admin)' : 'Vatandaş'}
                     </span>
@@ -282,6 +288,10 @@ window.loadCityCitizens = async function() {
             `;
             grid.innerHTML += cardHtml;
         });
+
+        if (validUserCount === 0) {
+            grid.innerHTML = '<div class="card" style="text-align: center; grid-column: 1 / -1;"><p style="color: var(--text-muted);">Şehirde henüz geçerli Roblox ID ile kayıtlı vatandaş bulunmuyor.</p></div>';
+        }
     } catch (error) {
         grid.innerHTML = `<div class="card" style="text-align: center; grid-column: 1 / -1;"><p style="color: #ef4444;">Vatandaşlar yüklenirken hata oluştu.</p></div>`;
     }
@@ -302,7 +312,7 @@ window.loadAllUsers = async function() {
 
             const row = `
                 <tr>
-                    <td><strong>${userData.username}</strong></td>
+                    <td><strong>${userData.username || "İsimsiz"}</strong></td>
                     <td style="color: var(--primary-blue);">${userData.robloxId || "-"}</td>
                     <td style="color: var(--text-muted);">${userData.email}</td>
                     <td>
@@ -340,6 +350,7 @@ window.deleteUserRecord = async function(uid) {
         try {
             await deleteDoc(doc(db, "users", uid));
             window.loadAllUsers();
+            window.loadCityCitizens();
         } catch (error) {
             alert("Silme hatası: " + error.message);
         }
