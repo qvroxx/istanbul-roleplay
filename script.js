@@ -44,19 +44,16 @@ const badgeDetails = {
     designer: { name: "Tasarımcı", desc: "Sunucu için grafik, arayüz veya görsel içerikler üreten tasarımcı.", icon: "fa-palette" }
 };
 
-// Yetkiye Göre İkon Belirleme Fonksiyonu
+// Yetkiye Göre Kesin İkon Belirleme Fonksiyonu
 function getRoleIcon(role) {
-    switch(role) {
-        case "Moderatör":
-        case "Admin":
-            return "fa-shield-halved";
-        case "Developer":
-            return "fa-code";
-        case "Yönetim":
-        case "Founder":
-            return "fa-crown";
-        default:
-            return "fa-user";
+    if (role === "Moderatör" || role === "Admin") {
+        return "fa-shield-halved";
+    } else if (role === "Developer") {
+        return "fa-code";
+    } else if (role === "Yönetim" || role === "Founder") {
+        return "fa-crown";
+    } else {
+        return "fa-user"; // Vatandaşlar için sade insan simgesi
     }
 }
 
@@ -282,7 +279,6 @@ onAuthStateChanged(auth, async (user) => {
             roleBadge.innerText = userRole;
             roleBadge.className = `role-badge ${userRole}`;
 
-            // Profil ikonunu yetkiye göre değiştir
             const profileIconEl = document.getElementById('profileAvatarIcon');
             profileIconEl.className = `citizen-avatar-icon avatar-icon-${userRole}`;
             profileIconEl.innerHTML = `<i class="fa-solid ${getRoleIcon(userRole)}"></i>`;
