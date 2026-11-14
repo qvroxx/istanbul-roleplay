@@ -162,38 +162,17 @@ function showAuthMessage(text, type) {
     msgBox.className = `auth-msg ${type}`;
 }
 
-// Güvenli Roblox Avatar Çekme Yöntemi (Roblox API Proxy / Direct Image Engine)
-async function getRobloxAvatar(username) {
-    try {
-        // Kullanıcı adından ID bulma
-        const userRes = await fetch('https://users.roblox.com/v1/usernames/users', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ usernames: [username], excludeBannedUsers: true })
-        });
-        const userData = await userRes.json();
-        
-        if (userData.data && userData.data.length > 0) {
-            const userId = userData.data[0].id;
-            // ID üzerinden kafa avatarı görselini çekme
-            const thumbRes = await fetch(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=150x150&format=Png&isCircular=true`);
-            const thumbData = await thumbRes.json();
-            
-            if (thumbData.data && thumbData.data.length > 0) {
-                return thumbData.data[0].imageUrl;
-            }
-        }
-    } catch (e) {
-        console.error("Roblox avatar yüklenirken hata:", e);
-    }
-    // Hata veya bulamama durumunda varsayılan Roblox adam resmi
-    return "https://tr.rbxcdn.com/3843dcb507da65b7990b7956bba44e7c/150/150/AvatarHeadshot/Png";
+// %100 Çalışan Doğrudan Roblox ID Tabanlı Avatar Çekme Fonksiyonu
+function getRobloxAvatar(robloxId) {
+    if (!robloxId) return "https://tr.rbxcdn.com/3843dcb507da65b7990b7956bba44e7c/150/150/AvatarHeadshot/Png";
+    // Roblox'un resmi direct render headshot API linki (CORS takılmaz, doğrudan görsel verir)
+    return `https://www.roblox.com/headshot-thumbnail/image?userId=${robloxId}&width=150&height=150&format=png`;
 }
 
 window.handleRegister = async function(e) {
     e.preventDefault();
     const username = document.getElementById('regUsername').value.trim();
-    const roblox = document.getElementById('regRoblox').value.trim();
+    const robloxId = document.getElementById('regRobloxId').value.trim();
     const email = document.getElementById('regEmail').value.trim();
     const password = document.getElementById('regPassword').value;
 
@@ -203,7 +182,7 @@ window.handleRegister = async function(e) {
 
         await setDoc(doc(db, "users", user.uid), {
             username: username,
-            roblox: roblox,
+            robloxId: robloxId,
             email: email,
             role: "user",
             createdAt: new Date().toISOString()
@@ -248,17 +227,16 @@ onAuthStateChanged(auth, async (user) => {
         if (userDoc.exists()) {
             const data = userDoc.data();
             document.getElementById('profileName').innerText = data.username;
-            document.getElementById('profileRoblox').innerText = "@" + data.roblox;
+            document.getElementById('profileRoblox').innerText = "ID: " + data.robloxId;
             document.getElementById('profileEmail').innerText = data.email;
             
-            // Roblox Avatarını Çağır
-            const avatarUrl = await getRobloxAvatar(data.roblox);
-            document.getElementById('profileAvatar').src = avatarUrl;
+            // Roblox Avatarını Doğrudan Yükle
+            document.getElementById('profileAvatar').src = getRobloxAvatar(data.robloxId);
             
             const roleBadge = document.getElementById('profileRole');
             if (data.role === 'admin') {
                 roleBadge.innerText = "Yönetici (Admin)";
-                rolebadge.classList.add('admin');
+                roleBadge.classList.add('admin');
                 adminNavItem.style.display = 'block';
             } else {
                 roleBadge.innerText = "Vatandaş";
@@ -287,23 +265,23 @@ window.loadCityCitizens = async function() {
             return;
         }
 
-        for (const docSnap of querySnapshot.docs) {
+        querySnapshot.forEach((docSnap) => {
             const userData = docSnap.data();
-            const avatarUrl = await getRobloxAvatar(userData.roblox || "Roblox");
+            const avatarUrl = getRobloxAvatar(userData.robloxId);
             const isAdmin = userData.role === 'admin';
 
             const cardHtml = `
                 <div class="card city-citizen-card">
                     <img src="${avatarUrl}" alt="Avatar" class="city-avatar">
                     <h3 style="color: #fff; font-size: 18px; margin-bottom: 4px;">${userData.username}</h3>
-                    <p style="color: var(--primary-blue); font-size: 13px; font-weight: 600; margin-bottom: 8px;">@${userData.roblox || "Bilinmiyor"}</p>
+                    <p style="color: var(--primary-blue); font-size: 13px; font-weight: 600; margin-bottom: 8px;">ID: ${userData.robloxId || "-"}</p>
                     <span class="role-badge ${isAdmin ? 'admin' : ''}">
                         ${isAdmin ? 'Yönetici (Admin)' : 'Vatandaş'}
                     </span>
                 </div>
             `;
             grid.innerHTML += cardHtml;
-        }
+        });
     } catch (error) {
         grid.innerHTML = `<div class="card" style="text-align: center; grid-column: 1 / -1;"><p style="color: #ef4444;">Vatandaşlar yüklenirken hata oluştu.</p></div>`;
     }
@@ -325,7 +303,7 @@ window.loadAllUsers = async function() {
             const row = `
                 <tr>
                     <td><strong>${userData.username}</strong></td>
-                    <td style="color: var(--primary-blue);">@${userData.roblox || "-"}</td>
+                    <td style="color: var(--primary-blue);">${userData.robloxId || "-"}</td>
                     <td style="color: var(--text-muted);">${userData.email}</td>
                     <td>
                         <span class="role-badge ${isAdmin ? 'admin' : ''}">
