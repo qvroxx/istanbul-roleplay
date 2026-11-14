@@ -39,6 +39,7 @@
                 <li><a class="nav-btn" onclick="switchTab('terimler', this)">Rol Sözlüğü</a></li>
                 <li><a class="nav-btn" onclick="switchTab('generator', this)">İsim Önerici</a></li>
                 <li><a class="nav-btn" onclick="switchTab('kurallar', this)">Kurallar</a></li>
+                <li><a class="nav-btn" onclick="switchTab('vatandaslar-listesi', this)"><i class="fa-solid id-card fa-users"></i> Vatandaşlar</a></li>
                 <li><a class="nav-btn" id="vatandasNavBtn" onclick="switchTab('vatandas-panel', this)"><i class="fa-solid fa-id-card"></i> Vatandaş Girişi</a></li>
                 <li id="adminNavItem" style="display: none;"><a class="nav-btn admin-nav" onclick="switchTab('admin-panel', this)"><i class="fa-solid fa-shield-halved"></i> Yönetim Paneli</a></li>
             </ul>
@@ -146,7 +147,21 @@
             </div>
         </section>
 
-        <!-- 5. VATANDAŞ GİRİŞ / KAYIT VE PROFİL PANELİ -->
+        <!-- 5. ŞEHİRDEKİ VATANDAŞLAR LİSTESİ -->
+        <section id="vatandaslar-listesi" class="page-section">
+            <h2 class="section-title">Şehirdeki Kayıtlı Vatandaşlar</h2>
+            <div class="card" style="margin-bottom: 20px; text-align: center;">
+                <p style="color: var(--text-muted); font-size: 14px;">İstanbul Roleplay sistemine kayıt olmuş tüm karakterlerin listesi ve Roblox profilleri aşağıdadır.</p>
+                <button onclick="loadCityCitizens()" class="btn btn-secondary" style="margin-top: 15px;"><i class="fa-solid fa-rotate"></i> Listeyi Yenile</button>
+            </div>
+            <div class="grid-3" id="cityCitizensGrid">
+                <div class="card" style="text-align: center; grid-column: 1 / -1;">
+                    <p style="color: var(--text-muted);">Vatandaşlar yükleniyor...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. VATANDAŞ GİRİŞ / KAYIT VE PROFİL PANELİ -->
         <section id="vatandas-panel" class="page-section">
             <h2 class="section-title">E-Devlet / Vatandaş Sistemi</h2>
 
@@ -174,8 +189,12 @@
 
                 <form id="registerForm" style="display: none;" onsubmit="handleRegister(event)">
                     <div class="input-group">
-                        <label>Karakter / Kullanıcı Adı</label>
+                        <label>Karakter Adı ve Soyadı (IC)</label>
                         <input type="text" id="regUsername" required placeholder="Örn: Ahmet Yılmaz">
+                    </div>
+                    <div class="input-group">
+                        <label>Roblox Kullanıcı Adı (Avatar için)</label>
+                        <input type="text" id="regRoblox" required placeholder="Örn: qvroxx">
                     </div>
                     <div class="input-group">
                         <label>E-Posta Adresi</label>
@@ -193,10 +212,11 @@
 
             <div id="citizenProfile" class="card auth-box" style="display: none;">
                 <div class="citizen-badge">
-                    <i class="fa-solid fa-id-card-clip"></i>
+                    <img id="profileAvatar" src="" alt="Avatar" class="citizen-avatar-img">
                     <div>
                         <h3 id="profileName" style="color: #fff;">Yükleniyor...</h3>
-                        <p id="profileEmail" style="color: var(--text-muted); font-size: 13px;">-</p>
+                        <p id="profileRoblox" style="color: var(--primary-blue); font-size: 13px; font-weight: 600;">-</p>
+                        <p id="profileEmail" style="color: var(--text-muted); font-size: 12px;">-</p>
                     </div>
                 </div>
                 <div class="citizen-details">
@@ -209,7 +229,7 @@
             </div>
         </section>
 
-        <!-- 6. ADMİN YÖNETİM PANELİ -->
+        <!-- 7. ADMİN YÖNETİM PANELİ -->
         <section id="admin-panel" class="page-section">
             <h2 class="section-title"><i class="fa-solid fa-shield-halved" style="color: var(--primary-blue);"></i> Yönetim & Üye Kontrol Paneli</h2>
             
@@ -224,14 +244,15 @@
                         <thead>
                             <tr>
                                 <th>Karakter / Ad</th>
+                                <th>Roblox</th>
                                 <th>E-Posta</th>
-                                <th>Mevcut Yetki</th>
+                                <th>Yetki</th>
                                 <th>İşlemler</th>
                             </tr>
                         </thead>
                         <tbody id="usersTableBody">
                             <tr>
-                                <td colspan="4" style="text-align: center; color: var(--text-muted);">Veriler yükleniyor...</td>
+                                <td colspan="5" style="text-align: center; color: var(--text-muted);">Veriler yükleniyor...</td>
                             </tr>
                         </tbody>
                     </table>
