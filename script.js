@@ -32,7 +32,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// Rozet Açıklamaları (Üstüne tıklandığında bilgi vermek için)
+// Rozet Açıklamaları
 const badgeDetails = {
     dev: { name: "Developer", desc: "Topluluğun yazılım ve sistem altyapısını geliştiren yazılımcı.", icon: "fa-code" },
     admin: { name: "Admin", desc: "Sunucu içi düzeni ve kuralları koruyan yetkili.", icon: "fa-shield-halved" },
@@ -43,6 +43,22 @@ const badgeDetails = {
     veteran: { name: "Veteran", desc: "Toplulukta uzun süredir bulunan kıdemli üye.", icon: "fa-medal" },
     designer: { name: "Tasarımcı", desc: "Sunucu için grafik, arayüz veya görsel içerikler üreten tasarımcı.", icon: "fa-palette" }
 };
+
+// Yetkiye Göre İkon Belirleme Fonksiyonu
+function getRoleIcon(role) {
+    switch(role) {
+        case "Moderatör":
+        case "Admin":
+            return "fa-shield-halved";
+        case "Developer":
+            return "fa-code";
+        case "Yönetim":
+        case "Founder":
+            return "fa-crown";
+        default:
+            return "fa-user";
+    }
+}
 
 document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
@@ -174,7 +190,6 @@ function showAuthMessage(text, type) {
     msgBox.className = `auth-msg ${type}`;
 }
 
-// Rozetlere Tıklayınca Açılan Bilgi Modalı
 window.showBadgeInfo = function(badgeKey, event) {
     if (event) event.stopPropagation();
     const info = badgeDetails[badgeKey];
@@ -190,7 +205,6 @@ window.closeBadgeInfoModal = function() {
     document.getElementById('badgeInfoModal').style.display = 'none';
 };
 
-// Rozet HTML oluşturucu
 function renderBadges(badgesArray) {
     if (!badgesArray || badgesArray.length === 0) return '<span style="color: var(--text-muted); font-size: 12px;">Rozet yok</span>';
     
@@ -268,6 +282,11 @@ onAuthStateChanged(auth, async (user) => {
             roleBadge.innerText = userRole;
             roleBadge.className = `role-badge ${userRole}`;
 
+            // Profil ikonunu yetkiye göre değiştir
+            const profileIconEl = document.getElementById('profileAvatarIcon');
+            profileIconEl.className = `citizen-avatar-icon avatar-icon-${userRole}`;
+            profileIconEl.innerHTML = `<i class="fa-solid ${getRoleIcon(userRole)}"></i>`;
+
             document.getElementById('profileBadges').innerHTML = renderBadges(data.badges);
 
             if (["Developer", "Yönetim", "Founder"].includes(userRole)) {
@@ -301,14 +320,15 @@ window.loadCityCitizens = async function() {
             const userData = docSnap.data();
             const role = userData.role || "Vatandaş";
             const badgesHtml = renderBadges(userData.badges);
+            const roleIcon = getRoleIcon(role);
             
             const safeUsername = (userData.username || "İsimsiz").replace(/'/g, "\\'");
             const safeDiscord = (userData.discord || "Bilinmiyor").replace(/'/g, "\\'");
             const safeRole = role;
 
             const cardHtml = `
-                <div class="card city-citizen-card" onclick="openCitizenModal('${safeUsername}', '${safeDiscord}', '${safeRole}', '${encodeURIComponent(JSON.stringify(userData.badges || []))}')">
-                    <div class="city-avatar-icon"><i class="fa-solid fa-user-shield"></i></div>
+                <div class="card city-citizen-card ${role}" onclick="openCitizenModal('${safeUsername}', '${safeDiscord}', '${safeRole}', '${encodeURIComponent(JSON.stringify(userData.badges || []))}')">
+                    <div class="city-avatar-icon avatar-icon-${role}"><i class="fa-solid ${roleIcon}"></i></div>
                     <h3 style="color: #fff; font-size: 18px; margin-bottom: 4px;">${userData.username || "İsimsiz"}</h3>
                     <p style="color: #5865F2; font-size: 13px; font-weight: 600; margin-bottom: 8px;">@${userData.discord || "Belirtilmemiş"}</p>
                     <div style="margin-bottom: 8px;">${badgesHtml}</div>
@@ -329,6 +349,10 @@ window.openCitizenModal = function(username, discord, role, badgesEncoded) {
     const roleSpan = document.getElementById('modalRole');
     roleSpan.innerText = role;
     roleSpan.className = `role-badge ${role}`;
+
+    const modalIconEl = document.getElementById('modalAvatarIcon');
+    modalIconEl.className = `modal-avatar-icon avatar-icon-${role}`;
+    modalIconEl.innerHTML = `<i class="fa-solid ${getRoleIcon(role)}"></i>`;
 
     try {
         const badges = JSON.parse(decodeURIComponent(badgesEncoded));
