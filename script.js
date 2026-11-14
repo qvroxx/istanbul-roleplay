@@ -176,7 +176,7 @@ function showAuthMessage(text, type) {
 
 // Rozetlere Tıklayınca Açılan Bilgi Modalı
 window.showBadgeInfo = function(badgeKey, event) {
-    if (event) event.stopPropagation(); // Kart tıklanmasını engelle
+    if (event) event.stopPropagation();
     const info = badgeDetails[badgeKey];
     if (!info) return;
 
@@ -190,7 +190,7 @@ window.closeBadgeInfoModal = function() {
     document.getElementById('badgeInfoModal').style.display = 'none';
 };
 
-// Rozet HTML oluşturucu (Tıklama Özelliği ile)
+// Rozet HTML oluşturucu
 function renderBadges(badgesArray) {
     if (!badgesArray || badgesArray.length === 0) return '<span style="color: var(--text-muted); font-size: 12px;">Rozet yok</span>';
     
@@ -270,7 +270,6 @@ onAuthStateChanged(auth, async (user) => {
 
             document.getElementById('profileBadges').innerHTML = renderBadges(data.badges);
 
-            // Sadece Developer, Yönetim ve Founder yönetim panelini görebilir
             if (["Developer", "Yönetim", "Founder"].includes(userRole)) {
                 adminNavItem.style.display = 'block';
             } else {
@@ -285,7 +284,6 @@ onAuthStateChanged(auth, async (user) => {
     }
 });
 
-// Şehirdeki Vatandaşları Listeleme
 window.loadCityCitizens = async function() {
     const grid = document.getElementById('cityCitizensGrid');
     grid.innerHTML = '<div class="card" style="text-align: center; grid-column: 1 / -1;"><p style="color: var(--text-muted);">Vatandaşlar yükleniyor...</p></div>';
