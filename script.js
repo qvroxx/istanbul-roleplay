@@ -32,6 +32,18 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+// Rozet Açıklamaları (Üstüne tıklandığında bilgi vermek için)
+const badgeDetails = {
+    dev: { name: "Developer", desc: "Topluluğun yazılım ve sistem altyapısını geliştiren yazılımcı.", icon: "fa-code" },
+    admin: { name: "Admin", desc: "Sunucu içi düzeni ve kuralları koruyan yetkili.", icon: "fa-shield-halved" },
+    founder: { name: "Founder", desc: "İstanbul Roleplay sunucusunun kurucusu.", icon: "fa-crown" },
+    vip: { name: "VIP Üye", desc: "Özelcalcalı ve destekçi şehir sakini statüsü.", icon: "fa-star" },
+    donater: { name: "Donater (Bağışçı)", desc: "Sunucuya maddi destek sağlayarak katkıda bulunan bağışçı.", icon: "fa-hand-holding-dollar" },
+    booster: { name: "Server Booster", desc: "Discord sunucusuna takviye (boost) basarak destek olan üye.", icon: "fa-rocket" },
+    veteran: { name: "Veteran", desc: "Toplulukta uzun süredir bulunan kıdemli üye.", icon: "fa-medal" },
+    designer: { name: "Tasarımcı", desc: "Sunucu için grafik, arayüz veya görsel içerikler üreten tasarımcı.", icon: "fa-palette" }
+};
+
 document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
         const intro = document.getElementById('intro-screen');
@@ -162,18 +174,31 @@ function showAuthMessage(text, type) {
     msgBox.className = `auth-msg ${type}`;
 }
 
-// Rozet HTML oluşturucu
+// Rozetlere Tıklayınca Açılan Bilgi Modalı
+window.showBadgeInfo = function(badgeKey, event) {
+    if (event) event.stopPropagation(); // Kart tıklanmasını engelle
+    const info = badgeDetails[badgeKey];
+    if (!info) return;
+
+    document.getElementById('badgeInfoIcon').innerHTML = `<i class="fa-solid ${info.icon}"></i>`;
+    document.getElementById('badgeInfoTitle').innerText = info.name;
+    document.getElementById('badgeInfoDesc').innerText = info.desc;
+    document.getElementById('badgeInfoModal').style.display = 'flex';
+};
+
+window.closeBadgeInfoModal = function() {
+    document.getElementById('badgeInfoModal').style.display = 'none';
+};
+
+// Rozet HTML oluşturucu (Tıklama Özelliği ile)
 function renderBadges(badgesArray) {
     if (!badgesArray || badgesArray.length === 0) return '<span style="color: var(--text-muted); font-size: 12px;">Rozet yok</span>';
     
-    const badgeIcons = {
-        dev: '<span class="badge-item badge-dev" title="Developer"><i class="fa-solid fa-code"></i></span>',
-        admin: '<span class="badge-item badge-admin" title="Admin"><i class="fa-solid fa-shield-halved"></i></span>',
-        founder: '<span class="badge-item badge-founder" title="Founder"><i class="fa-solid fa-crown"></i></span>',
-        vip: '<span class="badge-item badge-vip" title="VIP Üye"><i class="fa-solid fa-star"></i></span>'
-    };
-
-    return badgesArray.map(b => badgeIcons[b] || '').join('');
+    return badgesArray.map(b => {
+        const info = badgeDetails[b];
+        if (!info) return '';
+        return `<span class="badge-item badge-${b}" onclick="showBadgeInfo('${b}', event)" title="${info.name}"><i class="fa-solid ${info.icon}"></i></span>`;
+    }).join('');
 }
 
 window.handleRegister = async function(e) {
@@ -358,6 +383,10 @@ window.loadAllUsers = async function() {
                             <label><input type="checkbox" ${userBadges.includes('admin') ? 'checked' : ''} onchange="toggleUserBadge('${uid}', 'admin', this.checked)"> Admin</label>
                             <label><input type="checkbox" ${userBadges.includes('founder') ? 'checked' : ''} onchange="toggleUserBadge('${uid}', 'founder', this.checked)"> Founder</label>
                             <label><input type="checkbox" ${userBadges.includes('vip') ? 'checked' : ''} onchange="toggleUserBadge('${uid}', 'vip', this.checked)"> VIP</label>
+                            <label><input type="checkbox" ${userBadges.includes('donater') ? 'checked' : ''} onchange="toggleUserBadge('${uid}', 'donater', this.checked)"> Donater</label>
+                            <label><input type="checkbox" ${userBadges.includes('booster') ? 'checked' : ''} onchange="toggleUserBadge('${uid}', 'booster', this.checked)"> Booster</label>
+                            <label><input type="checkbox" ${userBadges.includes('veteran') ? 'checked' : ''} onchange="toggleUserBadge('${uid}', 'veteran', this.checked)"> Veteran</label>
+                            <label><input type="checkbox" ${userBadges.includes('designer') ? 'checked' : ''} onchange="toggleUserBadge('${uid}', 'designer', this.checked)"> Designer</label>
                         </div>
                     </td>
                     <td>
