@@ -162,6 +162,20 @@ function showAuthMessage(text, type) {
     msgBox.className = `auth-msg ${type}`;
 }
 
+// Rozet HTML oluşturucu
+function renderBadges(badgesArray) {
+    if (!badgesArray || badgesArray.length === 0) return '<span style="color: var(--text-muted); font-size: 12px;">Rozet yok</span>';
+    
+    const badgeIcons = {
+        dev: '<span class="badge-item badge-dev" title="Developer"><i class="fa-solid fa-code"></i></span>',
+        admin: '<span class="badge-item badge-admin" title="Admin"><i class="fa-solid fa-shield-halved"></i></span>',
+        founder: '<span class="badge-item badge-founder" title="Founder"><i class="fa-solid fa-crown"></i></span>',
+        vip: '<span class="badge-item badge-vip" title="VIP Üye"><i class="fa-solid fa-star"></i></span>'
+    };
+
+    return badgesArray.map(b => badgeIcons[b] || '').join('');
+}
+
 window.handleRegister = async function(e) {
     e.preventDefault();
     const username = document.getElementById('regUsername').value.trim();
@@ -177,7 +191,8 @@ window.handleRegister = async function(e) {
             username: username,
             discord: discord,
             email: email,
-            role: "Vatandaş", // Varsayılan yetki
+            role: "Vatandaş",
+            badges: [],
             createdAt: new Date().toISOString()
         });
 
@@ -228,8 +243,10 @@ onAuthStateChanged(auth, async (user) => {
             roleBadge.innerText = userRole;
             roleBadge.className = `role-badge ${userRole}`;
 
-            // Eğer kullanıcı Moderatör, Admin, Developer veya Founder ise yönetim panelini aç
-            if (userRole !== "Vatandaş") {
+            document.getElementById('profileBadges').innerHTML = renderBadges(data.badges);
+
+            // Sadece Developer, Yönetim ve Founder yönetim panelini görebilir
+            if (["Developer", "Yönetim", "Founder"].includes(userRole)) {
                 adminNavItem.style.display = 'block';
             } else {
                 adminNavItem.style.display = 'none';
@@ -243,7 +260,7 @@ onAuthStateChanged(auth, async (user) => {
     }
 });
 
-// Şehirdeki Vatandaşları Listeleme (Discord Profiline Bağlantılı)
+// Şehirdeki Vatandaşları Listeleme
 window.loadCityCitizens = async function() {
     const grid = document.getElementById('cityCitizensGrid');
     grid.innerHTML = '<div class="card" style="text-align: center; grid-column: 1 / -1;"><p style="color: var(--text-muted);">Vatandaşlar yükleniyor...</p></div>';
@@ -260,18 +277,19 @@ window.loadCityCitizens = async function() {
         querySnapshot.forEach((docSnap) => {
             const userData = docSnap.data();
             const role = userData.role || "Vatandaş";
+            const badgesHtml = renderBadges(userData.badges);
+            
             const safeUsername = (userData.username || "İsimsiz").replace(/'/g, "\\'");
             const safeDiscord = (userData.discord || "Bilinmiyor").replace(/'/g, "\\'");
             const safeRole = role;
 
             const cardHtml = `
-                <div class="card city-citizen-card" onclick="openCitizenModal('${safeUsername}', '${safeDiscord}', '${safeRole}')">
+                <div class="card city-citizen-card" onclick="openCitizenModal('${safeUsername}', '${safeDiscord}', '${safeRole}', '${encodeURIComponent(JSON.stringify(userData.badges || []))}')">
                     <div class="city-avatar-icon"><i class="fa-solid fa-user-shield"></i></div>
                     <h3 style="color: #fff; font-size: 18px; margin-bottom: 4px;">${userData.username || "İsimsiz"}</h3>
                     <p style="color: #5865F2; font-size: 13px; font-weight: 600; margin-bottom: 8px;">@${userData.discord || "Belirtilmemiş"}</p>
-                    <span class="role-badge ${role}">
-                        ${role}
-                    </span>
+                    <div style="margin-bottom: 8px;">${badgesHtml}</div>
+                    <span class="role-badge ${role}">${role}</span>
                 </div>
             `;
             grid.innerHTML += cardHtml;
@@ -281,8 +299,7 @@ window.loadCityCitizens = async function() {
     }
 };
 
-// Profil Detay Modalını Aç (Discord Profiline Yönlendirme Linki ile)
-window.openCitizenModal = function(username, discord, role) {
+window.openCitizenModal = function(username, discord, role, badgesEncoded) {
     document.getElementById('modalName').innerText = username;
     document.getElementById('modalDiscord').innerText = "@" + discord;
     
@@ -290,14 +307,19 @@ window.openCitizenModal = function(username, discord, role) {
     roleSpan.innerText = role;
     roleSpan.className = `role-badge ${role}`;
 
-    // Discord Profil Linki (Kullanıcı adı veya ID üzerinden doğrudan profil/mesaj penceresi)
+    try {
+        const badges = JSON.parse(decodeURIComponent(badgesEncoded));
+        document.getElementById('modalBadges').innerHTML = renderBadges(badges);
+    } catch(e) {
+        document.getElementById('modalBadges').innerHTML = '';
+    }
+
     const cleanDiscord = discord.replace('@', '').trim();
     document.getElementById('modalDiscordBtn').href = `https://discord.com/users/${cleanDiscord}`;
 
     document.getElementById('citizenModal').style.display = 'flex';
 };
 
-// Profil Detay Modalını Kapat
 window.closeCitizenModal = function() {
     document.getElementById('citizenModal').style.display = 'none';
 };
@@ -314,20 +336,29 @@ window.loadAllUsers = async function() {
             const userData = docSnap.data();
             const uid = docSnap.id;
             const currentRole = userData.role || "Vatandaş";
+            const userBadges = userData.badges || [];
 
             const row = `
                 <tr>
                     <td><strong>${userData.username || "İsimsiz"}</strong></td>
                     <td style="color: #5865F2; font-weight: 600;">@${userData.discord || "-"}</td>
-                    <td style="color: var(--text-muted);">${userData.email}</td>
                     <td>
                         <select class="role-select" onchange="updateUserRole('${uid}', this.value)">
                             <option value="Vatandaş" ${currentRole === 'Vatandaş' ? 'selected' : ''}>Vatandaş</option>
                             <option value="Moderatör" ${currentRole === 'Moderatör' ? 'selected' : ''}>Moderatör</option>
                             <option value="Admin" ${currentRole === 'Admin' ? 'selected' : ''}>Admin</option>
                             <option value="Developer" ${currentRole === 'Developer' ? 'selected' : ''}>Developer</option>
+                            <option value="Yönetim" ${currentRole === 'Yönetim' ? 'selected' : ''}>Yönetim</option>
                             <option value="Founder" ${currentRole === 'Founder' ? 'selected' : ''}>Founder</option>
                         </select>
+                    </td>
+                    <td>
+                        <div class="badge-checkboxes">
+                            <label><input type="checkbox" ${userBadges.includes('dev') ? 'checked' : ''} onchange="toggleUserBadge('${uid}', 'dev', this.checked)"> Dev</label>
+                            <label><input type="checkbox" ${userBadges.includes('admin') ? 'checked' : ''} onchange="toggleUserBadge('${uid}', 'admin', this.checked)"> Admin</label>
+                            <label><input type="checkbox" ${userBadges.includes('founder') ? 'checked' : ''} onchange="toggleUserBadge('${uid}', 'founder', this.checked)"> Founder</label>
+                            <label><input type="checkbox" ${userBadges.includes('vip') ? 'checked' : ''} onchange="toggleUserBadge('${uid}', 'vip', this.checked)"> VIP</label>
+                        </div>
                     </td>
                     <td>
                         <button class="action-btn btn-delete-user" onclick="deleteUserRecord('${uid}')">Kaydı Sil</button>
@@ -348,6 +379,25 @@ window.updateUserRole = async function(uid, newRole) {
         window.loadAllUsers();
     } catch (error) {
         alert("Yetki güncellenemedi: " + error.message);
+    }
+};
+
+window.toggleUserBadge = async function(uid, badgeKey, isChecked) {
+    try {
+        const userRef = doc(db, "users", uid);
+        const userDoc = await getDoc(userRef);
+        if (!userDoc.exists()) return;
+
+        let badges = userDoc.data().badges || [];
+        if (isChecked) {
+            if (!badges.includes(badgeKey)) badges.push(badgeKey);
+        } else {
+            badges = badges.filter(b => b !== badgeKey);
+        }
+
+        await updateDoc(userRef, { badges: badges });
+    } catch (error) {
+        alert("Rozet güncellenemedi: " + error.message);
     }
 };
 
