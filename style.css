@@ -460,7 +460,7 @@ nav ul li a:hover, nav ul li a.active {
     color: var(--text-muted);
 }
 
-/* YETKİ BADGE RENKLERİ */
+/* YETKİ BADGE & KART ÇERÇEVE STİLLERİ */
 .role-badge {
     padding: 4px 12px;
     border-radius: 6px;
@@ -476,6 +476,21 @@ nav ul li a:hover, nav ul li a.active {
 .role-badge.Developer { background: rgba(16, 185, 129, 0.2); color: #34d399; border-color: #10b981; }
 .role-badge.Yönetim { background: rgba(168, 85, 247, 0.2); color: #c084fc; border-color: #a855f7; }
 .role-badge.Founder { background: rgba(239, 68, 68, 0.2); color: #f87171; border-color: #ef4444; }
+
+/* KARTLARA ÖZEL YETKİ NEON RENKLERİ */
+.city-citizen-card.Moderatör { border-color: rgba(59, 130, 246, 0.5); }
+.city-citizen-card.Admin { border-color: rgba(245, 158, 11, 0.5); box-shadow: 0 0 15px rgba(245, 158, 11, 0.2); }
+.city-citizen-card.Developer { border-color: rgba(16, 185, 129, 0.5); box-shadow: 0 0 15px rgba(16, 185, 129, 0.2); }
+.city-citizen-card.Yönetim { border-color: rgba(168, 85, 247, 0.5); box-shadow: 0 0 15px rgba(168, 85, 247, 0.2); }
+.city-citizen-card.Founder { border-color: rgba(239, 68, 68, 0.6); box-shadow: 0 0 20px rgba(239, 68, 68, 0.3); }
+
+/* AVATAR İKONU RENKLERİ */
+.avatar-icon-Vatandaş { color: var(--primary-blue); border-color: var(--primary-blue); background: rgba(0, 162, 255, 0.1); }
+.avatar-icon-Moderatör { color: #60a5fa; border-color: #3b82f6; background: rgba(59, 130, 246, 0.15); }
+.avatar-icon-Admin { color: #f59e0b; border-color: #f59e0b; background: rgba(245, 158, 11, 0.15); }
+.avatar-icon-Developer { color: #34d399; border-color: #10b981; background: rgba(16, 185, 129, 0.15); }
+.avatar-icon-Yönetim { color: #c084fc; border-color: #a855f7; background: rgba(168, 85, 247, 0.15); }
+.avatar-icon-Founder { color: #f87171; border-color: #ef4444; background: rgba(239, 68, 68, 0.15); }
 
 /* ROZET SİSTEMİ STİLLERİ */
 .badge-container-profile {
@@ -519,7 +534,6 @@ nav ul li a:hover, nav ul li a.active {
 
 .city-citizen-card:hover {
     transform: translateY(-5px);
-    border-color: #5865F2;
     box-shadow: 0 0 20px rgba(88, 101, 242, 0.4);
 }
 
@@ -527,15 +541,14 @@ nav ul li a:hover, nav ul li a.active {
     width: 70px;
     height: 70px;
     border-radius: 50%;
-    border: 2px solid #5865F2;
     margin: 0 auto 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 30px;
-    color: #5865F2;
-    background: rgba(88, 101, 242, 0.1);
-    box-shadow: 0 0 15px rgba(88, 101, 242, 0.3);
+    border-width: 2px;
+    border-style: solid;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
 }
 
 /* MODAL / AÇILIR PENCERE */
@@ -595,15 +608,14 @@ nav ul li a:hover, nav ul li a.active {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    border: 2px solid #5865F2;
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 36px;
-    color: #5865F2;
-    background: rgba(88, 101, 242, 0.15);
-    box-shadow: 0 0 20px rgba(88, 101, 242, 0.4);
+    border-width: 2px;
+    border-style: solid;
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
 }
 
 .table-responsive {
