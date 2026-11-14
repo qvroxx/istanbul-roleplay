@@ -162,19 +162,10 @@ function showAuthMessage(text, type) {
     msgBox.className = `auth-msg ${type}`;
 }
 
-// Güvenli ve Kesin Çalışan Roblox Avatar Fonksiyonu
-function getRobloxAvatar(robloxId) {
-    if (!robloxId || robloxId === "-" || robloxId.trim() === "") {
-        return "https://tr.rbxcdn.com/3843dcb507da65b7990b7956bba44e7c/150/150/AvatarHeadshot/Png";
-    }
-    // Doğrudan çalışan resmi headshot görsel URL yapısı
-    return `https://www.roblox.com/headshot-thumbnail/image?userId=${robloxId.trim()}&width=150&height=150&format=png`;
-}
-
 window.handleRegister = async function(e) {
     e.preventDefault();
     const username = document.getElementById('regUsername').value.trim();
-    const robloxId = document.getElementById('regRobloxId').value.trim();
+    const discord = document.getElementById('regDiscord').value.trim();
     const email = document.getElementById('regEmail').value.trim();
     const password = document.getElementById('regPassword').value;
 
@@ -184,9 +175,9 @@ window.handleRegister = async function(e) {
 
         await setDoc(doc(db, "users", user.uid), {
             username: username,
-            robloxId: robloxId,
+            discord: discord,
             email: email,
-            role: "user",
+            role: "Vatandaş", // Varsayılan yetki
             createdAt: new Date().toISOString()
         });
 
@@ -229,20 +220,18 @@ onAuthStateChanged(auth, async (user) => {
         if (userDoc.exists()) {
             const data = userDoc.data();
             document.getElementById('profileName').innerText = data.username || "İsimsiz";
-            document.getElementById('profileRoblox').innerText = "ID: " + (data.robloxId || "Belirtilmemiş");
+            document.getElementById('profileDiscord').innerText = "@" + (data.discord || "Belirtilmemiş");
             document.getElementById('profileEmail').innerText = data.email;
             
-            // Avatarı Yükle
-            document.getElementById('profileAvatar').src = getRobloxAvatar(data.robloxId);
-            
             const roleBadge = document.getElementById('profileRole');
-            if (data.role === 'admin') {
-                roleBadge.innerText = "Yönetici (Admin)";
-                roleBadge.classList.add('admin');
+            const userRole = data.role || "Vatandaş";
+            roleBadge.innerText = userRole;
+            roleBadge.className = `role-badge ${userRole}`;
+
+            // Eğer kullanıcı Moderatör, Admin, Developer veya Founder ise yönetim panelini aç
+            if (userRole !== "Vatandaş") {
                 adminNavItem.style.display = 'block';
             } else {
-                roleBadge.innerText = "Vatandaş";
-                roleBadge.classList.remove('admin');
                 adminNavItem.style.display = 'none';
             }
         }
@@ -254,6 +243,7 @@ onAuthStateChanged(auth, async (user) => {
     }
 });
 
+// Şehirdeki Vatandaşları Listeleme (Discord Profiline Bağlantılı)
 window.loadCityCitizens = async function() {
     const grid = document.getElementById('cityCitizensGrid');
     grid.innerHTML = '<div class="card" style="text-align: center; grid-column: 1 / -1;"><p style="color: var(--text-muted);">Vatandaşlar yükleniyor...</p></div>';
@@ -262,39 +252,54 @@ window.loadCityCitizens = async function() {
         const querySnapshot = await getDocs(collection(db, "users"));
         grid.innerHTML = '';
 
-        let validUserCount = 0;
+        if (querySnapshot.empty) {
+            grid.innerHTML = '<div class="card" style="text-align: center; grid-column: 1 / -1;"><p style="color: var(--text-muted);">Şehirde henüz kayıtlı vatandaş bulunmuyor.</p></div>';
+            return;
+        }
 
         querySnapshot.forEach((docSnap) => {
             const userData = docSnap.data();
-            
-            // ID'si olmayan veya eksik olan eski/boş test hesaplarını listede gösterme
-            if (!userData.robloxId || userData.robloxId === "-") {
-                return; 
-            }
-
-            validUserCount++;
-            const avatarUrl = getRobloxAvatar(userData.robloxId);
-            const isAdmin = userData.role === 'admin';
+            const role = userData.role || "Vatandaş";
+            const safeUsername = (userData.username || "İsimsiz").replace(/'/g, "\\'");
+            const safeDiscord = (userData.discord || "Bilinmiyor").replace(/'/g, "\\'");
+            const safeRole = role;
 
             const cardHtml = `
-                <div class="card city-citizen-card">
-                    <img src="${avatarUrl}" alt="Avatar" class="city-avatar">
-                    <h3 style="color: #fff; font-size: 18px; margin-bottom: 4px;">${userData.username}</h3>
-                    <p style="color: var(--primary-blue); font-size: 13px; font-weight: 600; margin-bottom: 8px;">ID: ${userData.robloxId}</p>
-                    <span class="role-badge ${isAdmin ? 'admin' : ''}">
-                        ${isAdmin ? 'Yönetici (Admin)' : 'Vatandaş'}
+                <div class="card city-citizen-card" onclick="openCitizenModal('${safeUsername}', '${safeDiscord}', '${safeRole}')">
+                    <div class="city-avatar-icon"><i class="fa-solid fa-user-shield"></i></div>
+                    <h3 style="color: #fff; font-size: 18px; margin-bottom: 4px;">${userData.username || "İsimsiz"}</h3>
+                    <p style="color: #5865F2; font-size: 13px; font-weight: 600; margin-bottom: 8px;">@${userData.discord || "Belirtilmemiş"}</p>
+                    <span class="role-badge ${role}">
+                        ${role}
                     </span>
                 </div>
             `;
             grid.innerHTML += cardHtml;
         });
-
-        if (validUserCount === 0) {
-            grid.innerHTML = '<div class="card" style="text-align: center; grid-column: 1 / -1;"><p style="color: var(--text-muted);">Şehirde henüz geçerli Roblox ID ile kayıtlı vatandaş bulunmuyor.</p></div>';
-        }
     } catch (error) {
         grid.innerHTML = `<div class="card" style="text-align: center; grid-column: 1 / -1;"><p style="color: #ef4444;">Vatandaşlar yüklenirken hata oluştu.</p></div>`;
     }
+};
+
+// Profil Detay Modalını Aç (Discord Profiline Yönlendirme Linki ile)
+window.openCitizenModal = function(username, discord, role) {
+    document.getElementById('modalName').innerText = username;
+    document.getElementById('modalDiscord').innerText = "@" + discord;
+    
+    const roleSpan = document.getElementById('modalRole');
+    roleSpan.innerText = role;
+    roleSpan.className = `role-badge ${role}`;
+
+    // Discord Profil Linki (Kullanıcı adı veya ID üzerinden doğrudan profil/mesaj penceresi)
+    const cleanDiscord = discord.replace('@', '').trim();
+    document.getElementById('modalDiscordBtn').href = `https://discord.com/users/${cleanDiscord}`;
+
+    document.getElementById('citizenModal').style.display = 'flex';
+};
+
+// Profil Detay Modalını Kapat
+window.closeCitizenModal = function() {
+    document.getElementById('citizenModal').style.display = 'none';
 };
 
 window.loadAllUsers = async function() {
@@ -308,23 +313,23 @@ window.loadAllUsers = async function() {
         querySnapshot.forEach((docSnap) => {
             const userData = docSnap.data();
             const uid = docSnap.id;
-            const isAdmin = userData.role === 'admin';
+            const currentRole = userData.role || "Vatandaş";
 
             const row = `
                 <tr>
                     <td><strong>${userData.username || "İsimsiz"}</strong></td>
-                    <td style="color: var(--primary-blue);">${userData.robloxId || "-"}</td>
+                    <td style="color: #5865F2; font-weight: 600;">@${userData.discord || "-"}</td>
                     <td style="color: var(--text-muted);">${userData.email}</td>
                     <td>
-                        <span class="role-badge ${isAdmin ? 'admin' : ''}">
-                            ${isAdmin ? 'Admin' : 'Vatandaş'}
-                        </span>
+                        <select class="role-select" onchange="updateUserRole('${uid}', this.value)">
+                            <option value="Vatandaş" ${currentRole === 'Vatandaş' ? 'selected' : ''}>Vatandaş</option>
+                            <option value="Moderatör" ${currentRole === 'Moderatör' ? 'selected' : ''}>Moderatör</option>
+                            <option value="Admin" ${currentRole === 'Admin' ? 'selected' : ''}>Admin</option>
+                            <option value="Developer" ${currentRole === 'Developer' ? 'selected' : ''}>Developer</option>
+                            <option value="Founder" ${currentRole === 'Founder' ? 'selected' : ''}>Founder</option>
+                        </select>
                     </td>
                     <td>
-                        ${!isAdmin 
-                            ? `<button class="action-btn btn-make-admin" onclick="changeUserRole('${uid}', 'admin')">Admin Yap</button>` 
-                            : `<button class="action-btn btn-make-user" onclick="changeUserRole('${uid}', 'user')">Yetkiyi Al</button>`
-                        }
                         <button class="action-btn btn-delete-user" onclick="deleteUserRecord('${uid}')">Kaydı Sil</button>
                     </td>
                 </tr>
@@ -336,9 +341,10 @@ window.loadAllUsers = async function() {
     }
 };
 
-window.changeUserRole = async function(uid, newRole) {
+window.updateUserRole = async function(uid, newRole) {
     try {
         await updateDoc(doc(db, "users", uid), { role: newRole });
+        alert("Yetki başarıyla güncellendi!");
         window.loadAllUsers();
     } catch (error) {
         alert("Yetki güncellenemedi: " + error.message);
