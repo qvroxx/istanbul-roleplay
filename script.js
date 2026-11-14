@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
             intro.style.visibility = 'hidden';
         }
     }, 1500);
-    loadCityCitizens(); // Sayfa açılınca vatandaşları yükle
+    loadCityCitizens();
 });
 
 window.toggleMenu = function() {
@@ -162,23 +162,32 @@ function showAuthMessage(text, type) {
     msgBox.className = `auth-msg ${type}`;
 }
 
-// Roblox Avatar Görselini Çeken Yardımcı Fonksiyon (Roblox Thumbnails API)
+// Güvenli Roblox Avatar Çekme Yöntemi (Roblox API Proxy / Direct Image Engine)
 async function getRobloxAvatar(username) {
     try {
-        const res = await fetch(`https://thumbnails.roblox.com/v1/users/search?keyword=${encodeURIComponent(username)}&limit=1`);
-        const data = await res.json();
-        if (data.data && data.data.length > 0) {
-            const userId = data.data[0].id;
+        // Kullanıcı adından ID bulma
+        const userRes = await fetch('https://users.roblox.com/v1/usernames/users', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ usernames: [username], excludeBannedUsers: true })
+        });
+        const userData = await userRes.json();
+        
+        if (userData.data && userData.data.length > 0) {
+            const userId = userData.data[0].id;
+            // ID üzerinden kafa avatarı görselini çekme
             const thumbRes = await fetch(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=150x150&format=Png&isCircular=true`);
             const thumbData = await thumbRes.json();
+            
             if (thumbData.data && thumbData.data.length > 0) {
                 return thumbData.data[0].imageUrl;
             }
         }
     } catch (e) {
-        console.error("Roblox avatar çekilemedi:", e);
+        console.error("Roblox avatar yüklenirken hata:", e);
     }
-    return "https://tr.rbxcdn.com/3843dcb507da65b7990b7956bba44e7c/150/150/AvatarHeadshot/Png"; // Varsayılan ikon
+    // Hata veya bulamama durumunda varsayılan Roblox adam resmi
+    return "https://tr.rbxcdn.com/3843dcb507da65b7990b7956bba44e7c/150/150/AvatarHeadshot/Png";
 }
 
 window.handleRegister = async function(e) {
@@ -242,14 +251,14 @@ onAuthStateChanged(auth, async (user) => {
             document.getElementById('profileRoblox').innerText = "@" + data.roblox;
             document.getElementById('profileEmail').innerText = data.email;
             
-            // Roblox Avatarını Çek ve Yazdır
+            // Roblox Avatarını Çağır
             const avatarUrl = await getRobloxAvatar(data.roblox);
             document.getElementById('profileAvatar').src = avatarUrl;
             
             const roleBadge = document.getElementById('profileRole');
             if (data.role === 'admin') {
                 roleBadge.innerText = "Yönetici (Admin)";
-                roleBadge.classList.add('admin');
+                rolebadge.classList.add('admin');
                 adminNavItem.style.display = 'block';
             } else {
                 roleBadge.innerText = "Vatandaş";
@@ -265,7 +274,6 @@ onAuthStateChanged(auth, async (user) => {
     }
 });
 
-// Herkesin Birbirini Görebileceği Şehir Vatandaşları Listesi
 window.loadCityCitizens = async function() {
     const grid = document.getElementById('cityCitizensGrid');
     grid.innerHTML = '<div class="card" style="text-align: center; grid-column: 1 / -1;"><p style="color: var(--text-muted);">Vatandaşlar yükleniyor...</p></div>';
