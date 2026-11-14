@@ -39,7 +39,7 @@
                 <li><a class="nav-btn" onclick="switchTab('terimler', this)">Rol Sözlüğü</a></li>
                 <li><a class="nav-btn" onclick="switchTab('generator', this)">İsim Önerici</a></li>
                 <li><a class="nav-btn" onclick="switchTab('kurallar', this)">Kurallar</a></li>
-                <li><a class="nav-btn" onclick="switchTab('vatandaslar-listesi', this)"><i class="fa-solid id-card fa-users"></i> Vatandaşlar</a></li>
+                <li><a class="nav-btn" onclick="switchTab('vatandaslar-listesi', this)"><i class="fa-solid fa-users"></i> Vatandaşlar</a></li>
                 <li><a class="nav-btn" id="vatandasNavBtn" onclick="switchTab('vatandas-panel', this)"><i class="fa-solid fa-id-card"></i> Vatandaş Girişi</a></li>
                 <li id="adminNavItem" style="display: none;"><a class="nav-btn admin-nav" onclick="switchTab('admin-panel', this)"><i class="fa-solid fa-shield-halved"></i> Yönetim Paneli</a></li>
             </ul>
@@ -193,8 +193,8 @@
                         <input type="text" id="regUsername" required placeholder="Örn: Ahmet Yılmaz">
                     </div>
                     <div class="input-group">
-                        <label>Roblox Kullanıcı Adı (Avatar için)</label>
-                        <input type="text" id="regRoblox" required placeholder="Örn: qvroxx">
+                        <label>Roblox User ID (Sayısal ID - Avatar için)</label>
+                        <input type="text" id="regRobloxId" required placeholder="Örn: 15689234 (Profil linkindeki sayı)">
                     </div>
                     <div class="input-group">
                         <label>E-Posta Adresi</label>
@@ -244,7 +244,7 @@
                         <thead>
                             <tr>
                                 <th>Karakter / Ad</th>
-                                <th>Roblox</th>
+                                <th>Roblox ID</th>
                                 <th>E-Posta</th>
                                 <th>Yetki</th>
                                 <th>İşlemler</th>
