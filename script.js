@@ -40,6 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
             intro.style.visibility = 'hidden';
         }
     }, 1500);
+    loadCityCitizens(); // Sayfa açılınca vatandaşları yükle
 });
 
 window.toggleMenu = function() {
@@ -68,6 +69,8 @@ window.switchTab = function(tabId, element) {
 
     if (tabId === 'admin-panel') {
         window.loadAllUsers();
+    } else if (tabId === 'vatandaslar-listesi') {
+        window.loadCityCitizens();
     }
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -159,9 +162,29 @@ function showAuthMessage(text, type) {
     msgBox.className = `auth-msg ${type}`;
 }
 
+// Roblox Avatar Görselini Çeken Yardımcı Fonksiyon (Roblox Thumbnails API)
+async function getRobloxAvatar(username) {
+    try {
+        const res = await fetch(`https://thumbnails.roblox.com/v1/users/search?keyword=${encodeURIComponent(username)}&limit=1`);
+        const data = await res.json();
+        if (data.data && data.data.length > 0) {
+            const userId = data.data[0].id;
+            const thumbRes = await fetch(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=150x150&format=Png&isCircular=true`);
+            const thumbData = await thumbRes.json();
+            if (thumbData.data && thumbData.data.length > 0) {
+                return thumbData.data[0].imageUrl;
+            }
+        }
+    } catch (e) {
+        console.error("Roblox avatar çekilemedi:", e);
+    }
+    return "https://tr.rbxcdn.com/3843dcb507da65b7990b7956bba44e7c/150/150/AvatarHeadshot/Png"; // Varsayılan ikon
+}
+
 window.handleRegister = async function(e) {
     e.preventDefault();
     const username = document.getElementById('regUsername').value.trim();
+    const roblox = document.getElementById('regRoblox').value.trim();
     const email = document.getElementById('regEmail').value.trim();
     const password = document.getElementById('regPassword').value;
 
@@ -171,6 +194,7 @@ window.handleRegister = async function(e) {
 
         await setDoc(doc(db, "users", user.uid), {
             username: username,
+            roblox: roblox,
             email: email,
             role: "user",
             createdAt: new Date().toISOString()
@@ -215,7 +239,12 @@ onAuthStateChanged(auth, async (user) => {
         if (userDoc.exists()) {
             const data = userDoc.data();
             document.getElementById('profileName').innerText = data.username;
+            document.getElementById('profileRoblox').innerText = "@" + data.roblox;
             document.getElementById('profileEmail').innerText = data.email;
+            
+            // Roblox Avatarını Çek ve Yazdır
+            const avatarUrl = await getRobloxAvatar(data.roblox);
+            document.getElementById('profileAvatar').src = avatarUrl;
             
             const roleBadge = document.getElementById('profileRole');
             if (data.role === 'admin') {
@@ -236,9 +265,45 @@ onAuthStateChanged(auth, async (user) => {
     }
 });
 
+// Herkesin Birbirini Görebileceği Şehir Vatandaşları Listesi
+window.loadCityCitizens = async function() {
+    const grid = document.getElementById('cityCitizensGrid');
+    grid.innerHTML = '<div class="card" style="text-align: center; grid-column: 1 / -1;"><p style="color: var(--text-muted);">Vatandaşlar yükleniyor...</p></div>';
+
+    try {
+        const querySnapshot = await getDocs(collection(db, "users"));
+        grid.innerHTML = '';
+
+        if (querySnapshot.empty) {
+            grid.innerHTML = '<div class="card" style="text-align: center; grid-column: 1 / -1;"><p style="color: var(--text-muted);">Henüz şehirde kayıtlı vatandaş bulunmuyor.</p></div>';
+            return;
+        }
+
+        for (const docSnap of querySnapshot.docs) {
+            const userData = docSnap.data();
+            const avatarUrl = await getRobloxAvatar(userData.roblox || "Roblox");
+            const isAdmin = userData.role === 'admin';
+
+            const cardHtml = `
+                <div class="card city-citizen-card">
+                    <img src="${avatarUrl}" alt="Avatar" class="city-avatar">
+                    <h3 style="color: #fff; font-size: 18px; margin-bottom: 4px;">${userData.username}</h3>
+                    <p style="color: var(--primary-blue); font-size: 13px; font-weight: 600; margin-bottom: 8px;">@${userData.roblox || "Bilinmiyor"}</p>
+                    <span class="role-badge ${isAdmin ? 'admin' : ''}">
+                        ${isAdmin ? 'Yönetici (Admin)' : 'Vatandaş'}
+                    </span>
+                </div>
+            `;
+            grid.innerHTML += cardHtml;
+        }
+    } catch (error) {
+        grid.innerHTML = `<div class="card" style="text-align: center; grid-column: 1 / -1;"><p style="color: #ef4444;">Vatandaşlar yüklenirken hata oluştu.</p></div>`;
+    }
+};
+
 window.loadAllUsers = async function() {
     const tbody = document.getElementById('usersTableBody');
-    tbody.innerHTML = '<tr><td colspan="4" style="text-align: center;">Üyeler getiriliyor...</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align: center;">Üyeler getiriliyor...</td></tr>';
 
     try {
         const querySnapshot = await getDocs(collection(db, "users"));
@@ -252,6 +317,7 @@ window.loadAllUsers = async function() {
             const row = `
                 <tr>
                     <td><strong>${userData.username}</strong></td>
+                    <td style="color: var(--primary-blue);">@${userData.roblox || "-"}</td>
                     <td style="color: var(--text-muted);">${userData.email}</td>
                     <td>
                         <span class="role-badge ${isAdmin ? 'admin' : ''}">
@@ -270,7 +336,7 @@ window.loadAllUsers = async function() {
             tbody.innerHTML += row;
         });
     } catch (error) {
-        tbody.innerHTML = `<tr><td colspan="4" style="color: #ef4444;">Hata: ${error.message}</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="5" style="color: #ef4444;">Hata: ${error.message}</td></tr>`;
     }
 };
 
