@@ -142,7 +142,7 @@
         <section id="vatandaslar-listesi" class="page-section">
             <h2 class="section-title">Şehirdeki Kayıtlı Vatandaşlar</h2>
             <div class="card" style="margin-bottom: 20px; text-align: center;">
-                <p style="color: var(--text-muted); font-size: 14px;">Bir vatandaşın kartına tıklayarak profilini inceleyebilir ve Discord üzerinden doğrudan mesaj gönderebilirsin.</p>
+                <p style="color: var(--text-muted); font-size: 14px;">Bir vatandaşın kartına tıklayarak rozetlerini görebilir, profilini inceleyebilir ve Discord üzerinden mesaj gönderebilirsin.</p>
                 <button onclick="loadCityCitizens()" class="btn btn-secondary" style="margin-top: 15px;"><i class="fa-solid fa-rotate"></i> Listeyi Yenile</button>
             </div>
             <div class="grid-3" id="cityCitizensGrid">
@@ -212,6 +212,7 @@
                 </div>
                 <div class="citizen-details">
                     <p><strong>Yetki Durumu:</strong> <span id="profileRole" class="role-badge">Vatandaş</span></p>
+                    <p><strong>Rozetler:</strong> <span id="profileBadges" class="badge-container-profile">-</span></p>
                     <p><strong>Vatandaşlık Durumu:</strong> <span style="color: #10b981;">Aktif / Onaylı</span></p>
                 </div>
                 <button onclick="handleLogout()" class="btn btn-secondary" style="width: 100%; justify-content: center; margin-top: 20px; border-color: #ef4444; color: #ef4444;">
@@ -236,8 +237,8 @@
                             <tr>
                                 <th>Karakter / Ad</th>
                                 <th>Discord</th>
-                                <th>E-Posta</th>
                                 <th>Yetki Kademesi</th>
+                                <th>Rozet Yönetimi</th>
                                 <th>İşlemler</th>
                             </tr>
                         </thead>
@@ -261,6 +262,7 @@
                 <div class="modal-avatar-icon"><i class="fa-solid fa-user-shield"></i></div>
                 <h3 id="modalName" style="color: #fff; font-size: 22px; margin-top: 10px;">İsim</h3>
                 <p id="modalDiscord" style="color: #5865F2; font-weight: 600; font-size: 14px; margin-top: 4px;">@discord</p>
+                <div id="modalBadges" style="margin-top: 10px; display: flex; justify-content: center; gap: 6px;"></div>
             </div>
             <div class="citizen-details" style="margin-bottom: 20px;">
                 <p><strong>Yetki Kademesi:</strong> <span id="modalRole" class="role-badge">Vatandaş</span></p>
